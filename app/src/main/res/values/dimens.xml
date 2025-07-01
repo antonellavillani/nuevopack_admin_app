@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Espaciados Generales -->
+    <dimen name="espaciado_general">32dp</dimen>
+    <dimen name="margen_input">16dp</dimen>
+
+    <!-- Títulos y Textos -->
+    <dimen name="tamaño_texto_titulo">24sp</dimen>
+</resources>

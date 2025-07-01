@@ -3,5 +3,6 @@
         <item name="colorPrimary">#6A7348</item>
         <item name="colorPrimaryDark">#4E5735</item>
         <item name="colorAccent">#FFDD57</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
     </style>
 </resources>
