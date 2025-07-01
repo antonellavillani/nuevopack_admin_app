@@ -1,3 +1,10 @@
 <resources>
+    <!-- Pantalla Login -->
     <string name="app_name">NuevoPack Admin</string>
+    <string name="logo_nuevopack_login">Logo NuevoPack</string>
+    <string name="titulo_login">Iniciá sesión</string>
+    <string name="login_input_email">Correo electrónico</string>
+    <string name="login_input_contrasena">Contraseña</string>
+    <string name="login_boton_iniciar_sesion">Iniciar sesión</string>
+    <string name="mostrar_contraseña">Mostrar/ocultar contraseña</string>
 </resources>

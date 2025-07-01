@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Estilos Generales -->
+    <style name="Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@color/verde_claro</item>
+        <item name="android:textColor">@color/blanco</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <!-- Fuentes -->
+    <style name="PoppinsFont">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="RobotoFont">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <!-- Pantalla Login -->
+    <style name="EditTextLogin">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:backgroundTint">@color/verde_claro</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+</resources>
