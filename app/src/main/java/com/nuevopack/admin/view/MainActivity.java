@@ -4,6 +4,10 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.widget.Toast;
+import com.nuevopack.admin.controller.LoginController;
+import com.nuevopack.admin.model.Usuario;
+
 import android.text.InputType;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,20 +23,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Pantalla Login
+        // Inputs
+        EditText inputEmail = findViewById(R.id.inputEmail);
         EditText inputPassword = findViewById(R.id.inputPassword);
         ImageView eyeToggle = findViewById(R.id.eyeToggle);
         Button btnLogin = findViewById(R.id.btnLogin);
 
+        // Mostrar/ocultar contraseña
         eyeToggle.setOnClickListener(v -> {
             if (inputPassword.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
                 inputPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                eyeToggle.setImageResource(R.drawable.ic_hide_password); // ícono "ocultar"
+                eyeToggle.setImageResource(R.drawable.ic_hide_password);
                 inputPassword.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular));
-
             } else {
                 inputPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                eyeToggle.setImageResource(R.drawable.ic_show_password); // ícono "ver"
+                eyeToggle.setImageResource(R.drawable.ic_show_password);
                 inputPassword.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular));
             }
             inputPassword.setSelection(inputPassword.getText().length());
@@ -40,8 +45,18 @@ public class MainActivity extends AppCompatActivity {
 
         // Botón 'Iniciar sesión'
         btnLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, InicioActivity.class);
-            startActivity(intent);
+            String email = inputEmail.getText().toString().trim();
+            String password = inputPassword.getText().toString();
+
+            Usuario usuario = new Usuario(email, password);
+            LoginController loginController = new LoginController();
+
+            if (loginController.loginValido(usuario)) {
+                Intent intent = new Intent(MainActivity.this, InicioActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Credenciales incorrectas. Por favor, intente de nuevo.", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
