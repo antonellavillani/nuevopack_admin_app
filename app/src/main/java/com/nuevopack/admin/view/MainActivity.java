@@ -1,4 +1,4 @@
-package com.nuevopack.admin;
+package com.nuevopack.admin.view;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.content.Intent;
+
+import com.nuevopack.admin.R;
 
 public class MainActivity extends AppCompatActivity {
 
