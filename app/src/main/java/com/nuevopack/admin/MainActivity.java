@@ -5,19 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.text.InputType;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         // Pantalla Login
         EditText inputPassword = findViewById(R.id.inputPassword);
         ImageView eyeToggle = findViewById(R.id.eyeToggle);
+        Button btnLogin = findViewById(R.id.btnLogin);
 
         eyeToggle.setOnClickListener(v -> {
             if (inputPassword.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
@@ -31,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
                 inputPassword.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular));
             }
             inputPassword.setSelection(inputPassword.getText().length());
+        });
+
+        // Botón 'Iniciar sesión'
+        btnLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, InicioActivity.class);
+            startActivity(intent);
         });
     }
 }

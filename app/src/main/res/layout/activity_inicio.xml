@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Contenido Principal -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blanco">
+
+        <!-- Navbar -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@color/verde_oscuro"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <!-- Sidebar -->
+            <ImageView
+                android:id="@+id/iconMenu"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_menu"
+                android:contentDescription="Menú lateral"
+                app:tint="@color/blanco"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- Logo centrado -->
+            <ImageView
+                android:id="@+id/logoNavbar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/logo_nuevopack_navbar"
+                android:contentDescription="Logo NuevoPack" />
+
+            <!-- Ícono de cuenta -->
+            <ImageView
+                android:id="@+id/iconAccount"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_account"
+                app:tint="@color/blanco"
+                android:contentDescription="Cuenta" />
+        </RelativeLayout>
+
+        <!-- Contenido -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <!-- Título -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Panel de Administrador"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/verde_oscuro"
+                    android:layout_marginTop="16dp" />
+
+                <!-- Subtítulo -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bienvenido, Usuario"
+                    android:textSize="18sp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/gris_oscuro" />
+
+                <!-- Resumen en Cards -->
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_horizontal"
+                    android:divider="?android:attr/dividerHorizontal"
+                    android:showDividers="middle"
+                    android:dividerPadding="8dp">
+
+                    <!-- Servicios -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+                        <include android:id="@+id/includeCardServicios"
+                            layout="@layout/card_resumen" />
+                    </LinearLayout>
+
+                    <!-- Precios -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+                        <include android:id="@+id/includeCardPrecios"
+                            layout="@layout/card_resumen" />
+                    </LinearLayout>
+
+                    <!-- Usuarios -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+                        <include android:id="@+id/includeCardUsuarios"
+                            layout="@layout/card_resumen" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Accesos Rápidos -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Accesos Rápidos"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/verde_oscuro"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="12dp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nuevo servicio"
+                    style="@style/ButtonDashboard" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nuevo precio"
+                    style="@style/ButtonDashboard"
+                    android:layout_marginTop="8dp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nuevo usuario"
+                    style="@style/ButtonDashboard"
+                    android:layout_marginTop="8dp" />
+
+                <!-- Card Actividad Reciente -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+                    <include android:id="@+id/includeCardActividad"
+                        layout="@layout/card_info" />
+                </LinearLayout>
+
+                <!-- Card Alertas -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+                    <include android:id="@+id/includeCardAlertas"
+                        layout="@layout/card_info" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <!-- Sidebar -->
+    <LinearLayout
+        android:id="@+id/sidebarLayout"
+        android:layout_width="260dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/verde_oscuro"
+        android:gravity="center"
+        android:layout_gravity="start"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iconClose"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_close"
+            android:layout_gravity="start"
+            android:layout_margin="16dp"
+            android:contentDescription="Cerrar menú"
+            app:tint="@color/blanco"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <Button
+            android:text="Inicio"
+            style="@style/SidebarButton" />
+
+        <Button
+            android:text="Servicios"
+            style="@style/SidebarButton" />
+
+        <Button
+            android:text="Precios"
+            style="@style/SidebarButton" />
+
+        <Button
+            android:text="Usuarios"
+            style="@style/SidebarButton" />
+
+        <Button
+            android:text="Cerrar Sesión"
+            style="@style/SidebarButton" />
+    </LinearLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

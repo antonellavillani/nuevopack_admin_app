@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NuevoPackAdmin"
         tools:targetApi="31">
+
+        <!-- MainActivity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -22,6 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Inicio -->
+        <activity android:name=".InicioActivity" />
     </application>
 
 </manifest>

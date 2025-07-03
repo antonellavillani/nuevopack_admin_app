@@ -28,4 +28,22 @@
         <item name="android:paddingEnd">10dp</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
+
+    <!-- Pantalla Inicio -->
+    <style name="ButtonDashboard">
+        <item name="android:backgroundTint">@color/verde_oscuro</item>
+        <item name="android:textColor">@color/blanco</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="SidebarButton">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/blanco</item>
+        <item name="android:backgroundTint">@color/verde_claro</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:layout_marginTop">12dp</item>
+    </style>
 </resources>
