@@ -1,6 +1,4 @@
 package com.nuevopack.admin.view;
-import com.nuevopack.admin.controller.ResumenCardController;
-import com.nuevopack.admin.model.ResumenCard;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +10,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.nuevopack.admin.R;
+import com.nuevopack.admin.controller.DashboardController;
+import com.nuevopack.admin.model.ResumenCard;
+import com.nuevopack.admin.model.Actividad;
+import com.nuevopack.admin.model.Alerta;
 
 public class InicioActivity extends AppCompatActivity {
 
@@ -20,50 +22,51 @@ public class InicioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
-        // Menú
+        // Menú lateral
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         ImageView iconMenu = findViewById(R.id.iconMenu);
         ImageView iconClose = findViewById(R.id.iconClose);
+
         iconMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
         iconClose.setOnClickListener(v -> drawerLayout.closeDrawer(GravityCompat.START));
 
-        // Crear controlador
-        ResumenCardController cardController = new ResumenCardController();
+        // Instanciar el controlador
+        DashboardController dashboard = new DashboardController();
 
-        // === Card Servicios ===
+        // === Servicios ===
         View cardServicios = findViewById(R.id.includeCardServicios);
-        ResumenCard serviciosCard = cardController.getServiciosCard();
+        ResumenCard serviciosCard = dashboard.obtenerResumenServicios();
         TextView tituloServicios = cardServicios.findViewById(R.id.tituloCard);
         TextView textoServicios = cardServicios.findViewById(R.id.textoCard);
         tituloServicios.setText(serviciosCard.getTitulo());
         textoServicios.setText(serviciosCard.getDescripcion());
 
-        // === Card Precios ===
+        // === Precios ===
         View cardPrecios = findViewById(R.id.includeCardPrecios);
-        ResumenCard preciosCard = cardController.getPreciosCard();
+        ResumenCard preciosCard = dashboard.obtenerResumenPrecios();
         TextView tituloPrecios = cardPrecios.findViewById(R.id.tituloCard);
         TextView textoPrecios = cardPrecios.findViewById(R.id.textoCard);
         tituloPrecios.setText(preciosCard.getTitulo());
         textoPrecios.setText(preciosCard.getDescripcion());
 
-        // === Card Usuarios ===
+        // === Usuarios ===
         View cardUsuarios = findViewById(R.id.includeCardUsuarios);
-        ResumenCard usuariosCard = cardController.getUsuariosCard();
+        ResumenCard usuariosCard = dashboard.obtenerResumenUsuarios();
         TextView tituloUsuarios = cardUsuarios.findViewById(R.id.tituloCard);
         TextView textoUsuarios = cardUsuarios.findViewById(R.id.textoCard);
         tituloUsuarios.setText(usuariosCard.getTitulo());
         textoUsuarios.setText(usuariosCard.getDescripcion());
 
-        // === Card Actividad Reciente ===
+        // === Actividad Reciente ===
         View cardActividad = findViewById(R.id.includeCardActividad);
-        ResumenCard actividadCard = cardController.getActividadCard();
+        Actividad actividad = dashboard.obtenerUltimaActividad();
         TextView tituloActividad = cardActividad.findViewById(R.id.tituloInfo);
-        tituloActividad.setText(actividadCard.getTitulo());
+        tituloActividad.setText(actividad.getDescripcion());
 
-        // === Card Alertas ===
+        // === Alertas ===
         View cardAlertas = findViewById(R.id.includeCardAlertas);
-        ResumenCard alertasCard = cardController.getAlertasCard();
+        Alerta alerta = dashboard.obtenerAlertaSistema();
         TextView tituloAlertas = cardAlertas.findViewById(R.id.tituloInfo);
-        tituloAlertas.setText(alertasCard.getTitulo());
+        tituloAlertas.setText(alerta.getMensaje());
     }
 }
