@@ -8,12 +8,28 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.nuevopack.admin.R;
+import com.nuevopack.admin.adapter.ActividadAdapter;
 import com.nuevopack.admin.controller.DashboardController;
 import com.nuevopack.admin.model.ResumenCard;
 import com.nuevopack.admin.model.Actividad;
 import com.nuevopack.admin.model.Alerta;
+import com.nuevopack.admin.util.ApiConfig;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InicioActivity extends AppCompatActivity {
 
@@ -59,14 +75,61 @@ public class InicioActivity extends AppCompatActivity {
 
         // === Actividad Reciente ===
         View cardActividad = findViewById(R.id.includeCardActividad);
-        Actividad actividad = dashboard.obtenerUltimaActividad();
-        TextView tituloActividad = cardActividad.findViewById(R.id.tituloInfo);
-        tituloActividad.setText(actividad.getDescripcion());
+        RecyclerView recyclerActividad = cardActividad.findViewById(R.id.recyclerActividad);
+        recyclerActividad.setLayoutManager(new LinearLayoutManager(this));
+
+        List<Actividad> listaActividades = new ArrayList<>();
+        ActividadAdapter adapter = new ActividadAdapter(listaActividades);
+        recyclerActividad.setAdapter(adapter);
+
+        String url = ApiConfig.BASE_URL + "backend/api/obtener_actividades.php";
+        new Thread(() -> {
+            try {
+                HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+                conn.setRequestMethod("GET");
+                conn.connect();
+
+                InputStream in = new BufferedInputStream(conn.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                StringBuilder json = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    json.append(line);
+                }
+
+                JSONArray jsonArray = new JSONArray(json.toString());
+                List<Actividad> nuevasActividades = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    String descripcion = obj.getString("descripcion");
+                    String fecha = obj.getString("fecha");
+                    nuevasActividades.add(new Actividad(descripcion, fecha));
+                }
+
+                runOnUiThread(() -> {
+                    listaActividades.clear();
+                    listaActividades.addAll(nuevasActividades);
+                    adapter.notifyDataSetChanged();
+                });
+
+            } catch (Exception e) {
+                runOnUiThread(() -> {
+                    listaActividades.clear();
+                    listaActividades.add(new Actividad("Sin conexión con el servidor de base de datos", ""));
+                    adapter.notifyDataSetChanged();
+                });
+            }
+        }).start();
 
         // === Alertas ===
         View cardAlertas = findViewById(R.id.includeCardAlertas);
-        Alerta alerta = dashboard.obtenerAlertaSistema();
-        TextView tituloAlertas = cardAlertas.findViewById(R.id.tituloInfo);
-        tituloAlertas.setText(alerta.getMensaje());
+        RecyclerView recycler = cardAlertas.findViewById(R.id.recyclerActividad);
+        TextView textoAlerta = cardAlertas.findViewById(R.id.contenidoInfoAlerta);
+
+        // Ocultar RecyclerView y mostrar el TextView
+        recycler.setVisibility(View.GONE);
+        textoAlerta.setVisibility(View.VISIBLE);
+        textoAlerta.setText("• Todos los sistemas funcionan correctamente.");
+
     }
 }

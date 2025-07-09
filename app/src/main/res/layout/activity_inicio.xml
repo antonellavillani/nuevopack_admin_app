@@ -159,23 +159,38 @@
                     style="@style/ButtonDashboard"
                     android:layout_marginTop="8dp" />
 
-                <!-- Card Actividad Reciente -->
-                <LinearLayout
+                <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/scrollView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
-                    <include android:id="@+id/includeCardActividad"
-                        layout="@layout/card_info" />
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    android:padding="16dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- Card Actividad Reciente -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+                        <include android:id="@+id/includeCardActividad"
+                            layout="@layout/card_info" />
+                    </LinearLayout>
+
+                    <!-- Card Alertas -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp">
+                        <include android:id="@+id/includeCardAlertas"
+                            layout="@layout/card_info" />
                 </LinearLayout>
 
-                <!-- Card Alertas -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
-                    <include android:id="@+id/includeCardAlertas"
-                        layout="@layout/card_info" />
-                </LinearLayout>
+            </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
 
             </LinearLayout>
         </ScrollView>
