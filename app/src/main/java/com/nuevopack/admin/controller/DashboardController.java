@@ -18,11 +18,4 @@ public class DashboardController {
         return new ResumenCard("Usuarios", "3 activos");
     }
 
-    public Actividad obtenerUltimaActividad() {
-        return new Actividad("Se editó un usuario ayer");
-    }
-
-    public Alerta obtenerAlertaSistema() {
-        return new Alerta("Sin conexión con el servidor de base de datos");
-    }
 }
