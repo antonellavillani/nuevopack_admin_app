@@ -18,7 +18,7 @@ public class LoginController {
     public void validarLogin(Context context, Usuario usuario, LoginCallback callback) {
         new Thread(() -> {
             try {
-                URL url = new URL(ApiConfig.BASE_URL + "config/login_usuario.php");
+                URL url = new URL(ApiConfig.BASE_URL + "backend/api/login_usuario.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
