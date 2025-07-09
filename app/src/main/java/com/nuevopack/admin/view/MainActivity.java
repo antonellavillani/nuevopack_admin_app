@@ -48,15 +48,22 @@ public class MainActivity extends AppCompatActivity {
             String email = inputEmail.getText().toString().trim();
             String password = inputPassword.getText().toString();
 
+            if (email.isEmpty()) {
+                Toast.makeText(this, "Ingresá tu email", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             Usuario usuario = new Usuario(email, password);
             LoginController loginController = new LoginController();
 
-            if (loginController.loginValido(usuario)) {
-                Intent intent = new Intent(MainActivity.this, InicioActivity.class);
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, "Credenciales incorrectas. Por favor, intente de nuevo.", Toast.LENGTH_SHORT).show();
-            }
+            loginController.validarLogin(this, usuario, (exito, mensaje) -> {
+                if (exito) {
+                    Intent intent = new Intent(MainActivity.this, InicioActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
 }
