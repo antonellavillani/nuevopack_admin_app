@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gris_claro"
+    android:layout_marginBottom="8dp">
+
+    <ImageView
+        android:id="@+id/imagenServicio"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:scaleType="centerCrop"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/placeholder" />
+
+    <TextView
+        android:id="@+id/nombreServicio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Nombre del servicio"
+        android:textSize="16sp"
+        android:textColor="@color/negro"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center_vertical" />
+</LinearLayout>

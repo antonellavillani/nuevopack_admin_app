@@ -29,6 +29,10 @@
 
         <!-- Inicio -->
         <activity android:name=".view.InicioActivity" />
+
+        <!-- Servicios -->
+        <activity android:name=".view.ServiciosActivity" />
+
     </application>
 
 </manifest>

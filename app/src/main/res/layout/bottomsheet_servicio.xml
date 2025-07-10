@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/nombreCompleto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre del servicio"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@color/negro"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_marginBottom="8dp"/>
+
+        <ImageView
+            android:id="@+id/imagenCompleta"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/placeholder" />
+
+        <TextView
+            android:id="@+id/descripcionServicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripción completa del servicio"
+            android:textSize="16sp"
+            android:textColor="@color/gris_oscuro"
+            android:fontFamily="@font/poppins_regular" />
+    </LinearLayout>
+</ScrollView>

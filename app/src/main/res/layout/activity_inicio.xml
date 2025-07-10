@@ -220,10 +220,12 @@
             android:focusable="true" />
 
         <Button
+            android:id="@+id/btnInicio"
             android:text="Inicio"
             style="@style/SidebarButton" />
 
         <Button
+            android:id="@+id/btnServicios"
             android:text="Servicios"
             style="@style/SidebarButton" />
 

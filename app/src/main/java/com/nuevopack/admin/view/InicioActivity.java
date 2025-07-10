@@ -1,7 +1,9 @@
 package com.nuevopack.admin.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +47,20 @@ public class InicioActivity extends AppCompatActivity {
 
         iconMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
         iconClose.setOnClickListener(v -> drawerLayout.closeDrawer(GravityCompat.START));
+
+        // Botón Inicio
+        Button btnInicio = findViewById(R.id.btnInicio);
+        btnInicio.setOnClickListener(v -> {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        });
+
+        // Botón Servicios
+        Button btnServicios = findViewById(R.id.btnServicios);
+        btnServicios.setOnClickListener(v -> {
+            Intent intent = new Intent(InicioActivity.this, ServiciosActivity.class);
+            startActivity(intent);
+            drawerLayout.closeDrawer(GravityCompat.START); // cerrar el menú después de navegar
+        });
 
         // Instanciar el controlador
         DashboardController dashboard = new DashboardController();
