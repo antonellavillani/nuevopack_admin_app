@@ -230,6 +230,7 @@
             style="@style/SidebarButton" />
 
         <Button
+            android:id="@+id/btnPrecios"
             android:text="Precios"
             style="@style/SidebarButton" />
 

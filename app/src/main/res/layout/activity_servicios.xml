@@ -11,7 +11,7 @@
         android:id="@+id/tituloServicios"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gestión de Servicios"
+        android:text="@string/titulo_gestion_servicios"
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@color/negro"

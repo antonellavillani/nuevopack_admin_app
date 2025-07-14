@@ -62,6 +62,14 @@ public class InicioActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START); // cerrar el menú después de navegar
         });
 
+        // Botón Precios
+        Button btnPrecios = findViewById(R.id.btnPrecios);
+        btnPrecios.setOnClickListener(v -> {
+            Intent intent = new Intent(InicioActivity.this, PreciosActivity.class);
+            startActivity(intent);
+            drawerLayout.closeDrawer(GravityCompat.START);
+        });
+
         // Instanciar el controlador
         DashboardController dashboard = new DashboardController();
 
