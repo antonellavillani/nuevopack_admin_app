@@ -33,7 +33,8 @@
         <activity android:name=".view.ServiciosActivity" />
         <!-- Precios -->
         <activity android:name=".view.PreciosActivity" />
-
+        <!-- Usuarios -->
+        <activity android:name=".view.UsuariosActivity" />
     </application>
 
 </manifest>

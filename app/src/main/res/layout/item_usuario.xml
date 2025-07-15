@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gris_claro"
+    android:padding="12dp"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/nombreUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/verde_oscuro"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppins_regular" />
+
+    <TextView
+        android:id="@+id/idUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/gris_oscuro"
+        android:fontFamily="@font/poppins_regular" />
+
+    <TextView
+        android:id="@+id/emailUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gris_oscuro"
+        android:fontFamily="@font/poppins_regular" />
+
+    <TextView
+        android:id="@+id/telefonoUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gris_oscuro"
+        android:fontFamily="@font/poppins_regular" />
+
+    <TextView
+        android:id="@+id/aprobadoUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/negro"
+        android:textStyle="italic"
+        android:fontFamily="@font/poppins_regular" />
+</LinearLayout>

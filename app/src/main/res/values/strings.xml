@@ -13,4 +13,7 @@
 
     <!-- Pantalla Precios -->
     <string name="titulo_gestion_precios">Gestión de Precios</string>
+
+    <!-- Pantalla Usuarios -->
+    <string name="titulo_gestion_usuarios">Gestión de Usuarios</string>
 </resources>

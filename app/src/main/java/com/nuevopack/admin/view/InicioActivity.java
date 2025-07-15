@@ -1,5 +1,7 @@
 package com.nuevopack.admin.view;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -66,6 +68,14 @@ public class InicioActivity extends AppCompatActivity {
         Button btnPrecios = findViewById(R.id.btnPrecios);
         btnPrecios.setOnClickListener(v -> {
             Intent intent = new Intent(InicioActivity.this, PreciosActivity.class);
+            startActivity(intent);
+            drawerLayout.closeDrawer(GravityCompat.START);
+        });
+
+        // Botón Usuarios
+        Button btnUsuarios = findViewById(R.id.btnUsuarios);
+        btnUsuarios.setOnClickListener(v -> {
+            Intent intent = new Intent(InicioActivity.this, UsuariosActivity.class);
             startActivity(intent);
             drawerLayout.closeDrawer(GravityCompat.START);
         });
