@@ -19,4 +19,8 @@
     <color name="gris_medio">#DBDBDA</color>
     <color name="gris_oscuro">#666666</color>
     <color name="verde_claro">#6A7348</color>
+
+    <!-- Botones Editar y Eliminar -->
+    <color name="verde_manzana">#a9c27c</color>
+    <color name="rojo_manzana">#c85e5e</color>
 </resources>

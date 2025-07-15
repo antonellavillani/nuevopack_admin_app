@@ -31,6 +31,7 @@
         <activity android:name=".view.InicioActivity" />
         <!-- Servicios -->
         <activity android:name=".view.ServiciosActivity" />
+        <activity android:name=".view.NuevoServicioActivity" />
         <!-- Precios -->
         <activity android:name=".view.PreciosActivity" />
         <!-- Usuarios -->

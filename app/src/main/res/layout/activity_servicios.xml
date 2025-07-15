@@ -18,6 +18,16 @@
         android:fontFamily="@font/poppins_regular"
         android:layout_marginBottom="12dp" />
 
+    <Button
+        android:id="@+id/btnNuevoServicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/boton_nuevo_servicio"
+        android:backgroundTint="@color/verde_oscuro"
+        android:textColor="@color/blanco"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_marginBottom="12dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerServicios"
         android:layout_width="match_parent"

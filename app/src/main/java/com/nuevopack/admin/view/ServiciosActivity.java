@@ -1,7 +1,9 @@
 package com.nuevopack.admin.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +27,7 @@ public class ServiciosActivity extends AppCompatActivity {
 
     private ArrayList<Servicio> listaServicios = new ArrayList<>();
     private ServicioAdapter adapter;
+    private static final int REQUEST_NUEVO_SERVICIO = 100; // Constante para el request code
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,22 @@ public class ServiciosActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         cargarServicios();
+
+        Button btnNuevoServicio = findViewById(R.id.btnNuevoServicio);
+        btnNuevoServicio.setOnClickListener(v -> {
+            Intent intent = new Intent(ServiciosActivity.this, NuevoServicioActivity.class);
+            startActivityForResult(intent, REQUEST_NUEVO_SERVICIO);
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_NUEVO_SERVICIO && resultCode == RESULT_OK) {
+            // Recargar los servicios
+            cargarServicios();
+        }
     }
 
     private void cargarServicios() {

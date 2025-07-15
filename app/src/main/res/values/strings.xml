@@ -10,6 +10,13 @@
 
     <!-- Pantalla Servicios -->
     <string name="titulo_gestion_servicios">Gestión de Servicios</string>
+    <string name="boton_nuevo_servicio">Nuevo servicio</string>
+    <string name="boton_editar_servicio">Editar</string>
+    <string name="boton_eliminar_servicio">Eliminar</string>
+    <string name="hint_nombre">Nombre</string>
+    <string name="hint_descripcion">Descripción</string>
+    <string name="boton_guardar">Guardar</string>
+    <string name="boton_seleccionar_imagen">Seleccionar imagen</string>
 
     <!-- Pantalla Precios -->
     <string name="titulo_gestion_precios">Gestión de Precios</string>
