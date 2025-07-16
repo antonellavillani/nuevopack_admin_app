@@ -32,6 +32,7 @@
         <!-- Servicios -->
         <activity android:name=".view.ServiciosActivity" />
         <activity android:name=".view.NuevoServicioActivity" />
+        <activity android:name=".view.EditarServicioActivity" />
         <!-- Precios -->
         <activity android:name=".view.PreciosActivity" />
         <!-- Usuarios -->

@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.model.Servicio;
 import com.nuevopack.admin.util.ApiConfig;
+import com.nuevopack.admin.view.EditarServicioActivity;
 import com.nuevopack.admin.view.ServicioBottomSheet;
 
 import java.util.List;
@@ -57,8 +59,12 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHo
         });
 
         holder.btnEditar.setOnClickListener(v -> {
-            // Acá se abre la pantalla de edición
-            Toast.makeText(v.getContext(), "Editar: " + servicio.getNombre(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(context, EditarServicioActivity.class);
+            intent.putExtra("id", servicio.getId());
+            intent.putExtra("nombre", servicio.getNombre());
+            intent.putExtra("descripcion", servicio.getDescripcion());
+            intent.putExtra("foto", servicio.getFoto());
+            ((Activity) context).startActivityForResult(intent, 101);
         });
 
         holder.btnEliminar.setOnClickListener(v -> {

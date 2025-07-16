@@ -27,7 +27,8 @@ public class ServiciosActivity extends AppCompatActivity {
 
     private ArrayList<Servicio> listaServicios = new ArrayList<>();
     private ServicioAdapter adapter;
-    private static final int REQUEST_NUEVO_SERVICIO = 100; // Constante para el request code
+    private static final int REQUEST_NUEVO_SERVICIO = 100;
+    private static final int REQUEST_EDITAR_SERVICIO = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +53,8 @@ public class ServiciosActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_NUEVO_SERVICIO && resultCode == RESULT_OK) {
-            // Recargar los servicios
-            cargarServicios();
+        if ((requestCode == REQUEST_NUEVO_SERVICIO || requestCode == REQUEST_EDITAR_SERVICIO) && resultCode == RESULT_OK) {
+            cargarServicios(); // Recargar los servicios para mostrar cambios
         }
     }
 

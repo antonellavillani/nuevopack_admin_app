@@ -17,6 +17,7 @@
     <string name="hint_descripcion">Descripción</string>
     <string name="boton_guardar">Guardar</string>
     <string name="boton_seleccionar_imagen">Seleccionar imagen</string>
+    <string name="boton_eliminar_imagen">Eliminar imagen</string>
 
     <!-- Pantalla Precios -->
     <string name="titulo_gestion_precios">Gestión de Precios</string>

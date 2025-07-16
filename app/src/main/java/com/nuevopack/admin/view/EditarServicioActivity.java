@@ -6,11 +6,12 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,11 +29,12 @@ import android.text.TextUtils;
 import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
 
-public class NuevoServicioActivity extends AppCompatActivity {
+public class EditarServicioActivity extends AppCompatActivity {
     private EditText inputNombre, inputDescripcion;
-    private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView imagePreview;
     private String imageBase64 = "";
+    private int servicioId;
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +46,58 @@ public class NuevoServicioActivity extends AppCompatActivity {
         imagePreview = findViewById(R.id.imagePreview);
         Button btnSeleccionarImagen = findViewById(R.id.btnSeleccionarImagen);
         Button btnEliminarImagen = findViewById(R.id.btnEliminarImagen);
-        btnEliminarImagen.setVisibility(View.GONE);
         Button btnGuardar = findViewById(R.id.btnGuardarServicio);
 
-        btnSeleccionarImagen.setOnClickListener(v -> seleccionarImagen());
-        btnGuardar.setOnClickListener(v -> {
-            String nombre = inputNombre.getText().toString().trim();
-            String descripcion = inputDescripcion.getText().toString().trim();
+        // Recuperar datos del Intent
+        servicioId = getIntent().getIntExtra("id", -1);
+        String nombre = getIntent().getStringExtra("nombre");
+        String descripcion = getIntent().getStringExtra("descripcion");
+        String fotoUrl = getIntent().getStringExtra("foto");
 
-            if (TextUtils.isEmpty(nombre) || TextUtils.isEmpty(descripcion)) {
+        TextView textViewTitulo = findViewById(R.id.textViewTitulo);
+        textViewTitulo.setText("Editar " + nombre);
+        inputNombre.setText(nombre);
+        inputDescripcion.setText(descripcion);
+
+        // Cargar imagen actual (si hay)
+        if (fotoUrl != null && !fotoUrl.isEmpty()) {
+            new Thread(() -> {
+                try {
+                    URL url = new URL(ApiConfig.BASE_URL + fotoUrl);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setDoInput(true);
+                    conn.connect();
+                    InputStream is = conn.getInputStream();
+                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+                    byte[] imageBytes = baos.toByteArray();
+                    imageBase64 = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+                    runOnUiThread(() -> imagePreview.setImageBitmap(bitmap));
+                } catch (Exception ignored) {}
+            }).start();
+        }
+
+        btnSeleccionarImagen.setOnClickListener(v -> seleccionarImagen());
+
+        btnEliminarImagen.setOnClickListener(v -> {
+            imagePreview.setImageResource(R.drawable.placeholder);
+            imageBase64 = "ELIMINAR";
+        });
+
+        btnGuardar.setText("Actualizar");
+        btnGuardar.setOnClickListener(v -> {
+            String nuevoNombre = inputNombre.getText().toString().trim();
+            String nuevaDescripcion = inputDescripcion.getText().toString().trim();
+
+            if (TextUtils.isEmpty(nuevoNombre) || TextUtils.isEmpty(nuevaDescripcion)) {
                 Toast.makeText(this, "Completá todos los campos", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            guardarServicio(nombre, descripcion, imageBase64);
+            actualizarServicio(servicioId, nuevoNombre, nuevaDescripcion, imageBase64);
         });
     }
 
@@ -88,15 +128,16 @@ public class NuevoServicioActivity extends AppCompatActivity {
         }
     }
 
-    private void guardarServicio(String nombre, String descripcion, String imagenBase64) {
+    private void actualizarServicio(int id, String nombre, String descripcion, String imagenBase64) {
         new Thread(() -> {
             try {
-                URL url = new URL(ApiConfig.BASE_URL + "backend/api/servicios_abm/crear_servicio.php");
+                URL url = new URL(ApiConfig.BASE_URL + "backend/api/servicios_abm/editar_servicio.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
 
-                String datos = "nombre=" + URLEncoder.encode(nombre, "UTF-8") +
+                String datos = "id=" + URLEncoder.encode(String.valueOf(id), "UTF-8") +
+                        "&nombre=" + URLEncoder.encode(nombre, "UTF-8") +
                         "&descripcion=" + URLEncoder.encode(descripcion, "UTF-8") +
                         "&foto=" + URLEncoder.encode(imagenBase64, "UTF-8");
 
@@ -108,11 +149,11 @@ public class NuevoServicioActivity extends AppCompatActivity {
                 int responseCode = conn.getResponseCode();
                 runOnUiThread(() -> {
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        Toast.makeText(this, "Servicio guardado correctamente", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Servicio actualizado correctamente", Toast.LENGTH_SHORT).show();
                         setResult(RESULT_OK);
-                        finish(); // volver a la pantalla anterior
+                        finish();
                     } else {
-                        Toast.makeText(this, "Error al guardar el servicio", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Error al actualizar el servicio", Toast.LENGTH_SHORT).show();
                     }
                 });
 
