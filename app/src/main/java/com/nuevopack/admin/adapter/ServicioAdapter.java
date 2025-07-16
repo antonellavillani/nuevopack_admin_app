@@ -1,5 +1,11 @@
 package com.nuevopack.admin.adapter;
 
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +15,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.AlertDialog;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.model.Servicio;
+import com.nuevopack.admin.util.ApiConfig;
 import com.nuevopack.admin.view.ServicioBottomSheet;
 
 import java.util.List;
@@ -54,14 +62,55 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHo
         });
 
         holder.btnEliminar.setOnClickListener(v -> {
-            // Acá se abre la pantalla de eliminación
-            Toast.makeText(v.getContext(), "Eliminar: " + servicio.getNombre(), Toast.LENGTH_SHORT).show();
+            new AlertDialog.Builder(context)
+                    .setTitle("¿Eliminar servicio?")
+                    .setMessage("¿Estás seguro de que querés eliminar el servicio \"" + servicio.getNombre() + "\"?")
+                    .setPositiveButton("Sí", (dialog, which) -> {
+                        eliminarServicio(servicio.getId(), holder.getAdapterPosition());
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         });
     }
 
     @Override
     public int getItemCount() {
         return servicios.size();
+    }
+
+    private void eliminarServicio(int id, int position) {
+        new Thread(() -> {
+            try {
+                URL url = new URL(ApiConfig.BASE_URL + "backend/api/servicios_abm/eliminar_servicio.php");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
+
+                String datos = "id=" + URLEncoder.encode(String.valueOf(id), "UTF-8");
+                OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+                writer.write(datos);
+                writer.flush();
+                writer.close();
+
+                int responseCode = conn.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    ((Activity) context).runOnUiThread(() -> {
+                        servicios.remove(position);
+                        notifyItemRemoved(position);
+                        Toast.makeText(context, "Servicio eliminado", Toast.LENGTH_SHORT).show();
+                    });
+                } else {
+                    ((Activity) context).runOnUiThread(() ->
+                            Toast.makeText(context, "No se pudo eliminar el servicio", Toast.LENGTH_SHORT).show()
+                    );
+                }
+
+            } catch (Exception e) {
+                ((Activity) context).runOnUiThread(() ->
+                        Toast.makeText(context, "Error de conexión: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                );
+            }
+        }).start();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -77,5 +126,6 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHo
             btnEditar = itemView.findViewById(R.id.btnEditarServicio);
             btnEliminar = itemView.findViewById(R.id.btnEliminarServicio);
         }
+
     }
 }
