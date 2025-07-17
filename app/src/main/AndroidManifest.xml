@@ -39,6 +39,7 @@
         <activity android:name=".view.EditarPrecioActivity" />
         <!-- Usuarios -->
         <activity android:name=".view.UsuariosActivity" />
+        <activity android:name=".view.CrearUsuarioActivity" />
     </application>
 
 </manifest>

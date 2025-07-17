@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textViewTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/texto_nuevo_usuario"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/negro"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_marginBottom="16dp" />
+
+        <TextView android:text="@string/opcion_nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" />
+
+        <EditText android:id="@+id/inputNombre"
+            android:hint="@string/hint_nombre_usuario"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView android:text="@string/opcion_apellido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" />
+
+        <EditText android:id="@+id/inputApellido"
+            android:hint="@string/hint_apellido_usuario"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView android:text="@string/opcion_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" />
+
+        <EditText android:id="@+id/inputEmail"
+            android:hint="@string/hint_email"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView android:text="@string/opcion_telefono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" />
+
+        <EditText android:id="@+id/inputTelefono"
+            android:hint="@string/hint_telefono"
+            android:inputType="phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText android:id="@+id/inputPassword"
+            android:hint="@string/opcion_contrasena"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText android:id="@+id/inputRepetirPassword"
+            android:hint="@string/opcion_repetir_contrasena"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnCrearUsuario"
+            android:text="@string/boton_guardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+</ScrollView>

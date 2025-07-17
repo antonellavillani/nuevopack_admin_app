@@ -31,8 +31,18 @@
     <string name="hint_tipo_unidad">Ej: Por unidad, por millar...</string>
     <string name="opcion_precio">Precio</string>
     <string name="hint_precio">Ej: 1500</string>
-    <string name="boton_crear_precio">Crear precio</string>
 
     <!-- Pantalla Usuarios -->
     <string name="titulo_gestion_usuarios">Gestión de Usuarios</string>
+    <string name="texto_nuevo_usuario">Nuevo usuario</string>
+    <string name="opcion_nombre">Nombre</string>
+    <string name="hint_nombre_usuario">Ej: Juan</string>
+    <string name="opcion_apellido">Apellido</string>
+    <string name="hint_apellido_usuario">Ej: Pérez</string>
+    <string name="opcion_email">Correo electrónico</string>
+    <string name="hint_email">Ej: juanperez@ejemplo.com</string>
+    <string name="opcion_telefono">Teléfono (opcional)</string>
+    <string name="hint_telefono">Ej: 11 2233 4455</string>
+    <string name="opcion_contrasena">Contraseña</string>
+    <string name="opcion_repetir_contrasena">Repetir contraseña</string>
 </resources>

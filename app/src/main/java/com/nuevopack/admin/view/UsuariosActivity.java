@@ -1,7 +1,9 @@
 package com.nuevopack.admin.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,8 @@ public class UsuariosActivity extends AppCompatActivity {
 
     private final ArrayList<UsuarioEspecial> listaUsuarios = new ArrayList<>();
     private UsuarioAdapter adapter;
+    private static final int REQUEST_NUEVO_SERVICIO = 300;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,21 @@ public class UsuariosActivity extends AppCompatActivity {
         recycler.setAdapter(adapter);
 
         cargarUsuarios();
+
+        Button btnNuevoUsuario = findViewById(R.id.btnNuevoUsuario);
+        btnNuevoUsuario.setOnClickListener(v -> {
+            Intent intent = new Intent(UsuariosActivity.this, CrearUsuarioActivity.class);
+            startActivityForResult(intent, REQUEST_NUEVO_SERVICIO);
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_NUEVO_SERVICIO && resultCode == RESULT_OK) {
+            cargarUsuarios(); // recarga la lista
+        }
     }
 
     private void cargarUsuarios() {
