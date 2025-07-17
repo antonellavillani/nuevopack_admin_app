@@ -1,4 +1,9 @@
 <resources>
+    <!-- Botones reutilizables -->
+    <string name="boton_editar">Editar</string>
+    <string name="boton_eliminar">Eliminar</string>
+    <string name="boton_guardar">Guardar</string>
+
     <!-- Pantalla Login -->
     <string name="app_name">NuevoPack Admin</string>
     <string name="logo_nuevopack_login">Logo NuevoPack</string>
@@ -11,16 +16,22 @@
     <!-- Pantalla Servicios -->
     <string name="titulo_gestion_servicios">Gestión de Servicios</string>
     <string name="boton_nuevo_servicio">Nuevo servicio</string>
-    <string name="boton_editar_servicio">Editar</string>
-    <string name="boton_eliminar_servicio">Eliminar</string>
     <string name="hint_nombre">Nombre</string>
     <string name="hint_descripcion">Descripción</string>
-    <string name="boton_guardar">Guardar</string>
     <string name="boton_seleccionar_imagen">Seleccionar imagen</string>
     <string name="boton_eliminar_imagen">Eliminar imagen</string>
 
     <!-- Pantalla Precios -->
     <string name="titulo_gestion_precios">Gestión de Precios</string>
+    <string name="texto_nuevo_precio">Nuevo precio</string>
+    <string name="opcion_servicio">Servicio</string>
+    <string name="opcion_descripcion">Descripción</string>
+    <string name="hint_descripcion_precios">Ej: Calendario chico</string>
+    <string name="opcion_tipo_unidad">Tipo de unidad</string>
+    <string name="hint_tipo_unidad">Ej: Por unidad, por millar...</string>
+    <string name="opcion_precio">Precio</string>
+    <string name="hint_precio">Ej: 1500</string>
+    <string name="boton_crear_precio">Crear precio</string>
 
     <!-- Pantalla Usuarios -->
     <string name="titulo_gestion_usuarios">Gestión de Usuarios</string>

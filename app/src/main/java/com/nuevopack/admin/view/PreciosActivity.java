@@ -2,6 +2,7 @@ package com.nuevopack.admin.view;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,16 +22,24 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import android.content.Intent;
 
 public class PreciosActivity extends AppCompatActivity {
 
     private final ArrayList<Precio> listaPrecios = new ArrayList<>();
     private PrecioAdapter adapter;
+    private static final int REQUEST_NUEVO_PRECIO = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_precios);
+
+        Button btnNuevoPrecio = findViewById(R.id.btnNuevoPrecio);
+        btnNuevoPrecio.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CrearPrecioActivity.class);
+            startActivityForResult(intent, REQUEST_NUEVO_PRECIO);
+        });
 
         RecyclerView recycler = findViewById(R.id.recyclerPrecios);
         recycler.setLayoutManager(new LinearLayoutManager(this));
@@ -81,5 +90,13 @@ public class PreciosActivity extends AppCompatActivity {
                 );
             }
         }).start();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_NUEVO_PRECIO && resultCode == RESULT_OK) {
+            cargarPrecios();
+        }
     }
 }

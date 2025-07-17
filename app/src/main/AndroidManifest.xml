@@ -31,10 +31,11 @@
         <activity android:name=".view.InicioActivity" />
         <!-- Servicios -->
         <activity android:name=".view.ServiciosActivity" />
-        <activity android:name=".view.NuevoServicioActivity" />
+        <activity android:name=".view.CrearServicioActivity" />
         <activity android:name=".view.EditarServicioActivity" />
         <!-- Precios -->
         <activity android:name=".view.PreciosActivity" />
+        <activity android:name=".view.CrearPrecioActivity" />
         <!-- Usuarios -->
         <activity android:name=".view.UsuariosActivity" />
     </application>

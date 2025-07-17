@@ -13,6 +13,12 @@ public class Servicio {
         this.foto = foto;
     }
 
+    // Constructor para Spinner (solo id y nombre)
+    public Servicio(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+
     public int getId() { return id; }
     public String getNombre() { return nombre; }
     public String getDescripcion() { return descripcion; }

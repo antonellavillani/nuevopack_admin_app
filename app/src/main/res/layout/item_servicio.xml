@@ -42,7 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/boton_editar_servicio"
+            android:text="@string/boton_editar"
             android:textColor="@color/blanco"
             android:backgroundTint="@color/verde_manzana"
             android:fontFamily="@font/poppins_regular"/>
@@ -56,7 +56,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/boton_eliminar_servicio"
+            android:text="@string/boton_eliminar"
             android:textColor="@color/blanco"
             android:backgroundTint="@color/rojo_manzana"
             android:fontFamily="@font/poppins_regular"/>

@@ -21,6 +21,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/btnNuevoPrecio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/texto_nuevo_precio"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/blanco"
+        android:backgroundTint="@color/verde_manzana"
+        android:fontFamily="@font/poppins_regular"
+        app:layout_constraintTop_toBottomOf="@id/tituloPrecios"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerPrecios"
         android:layout_width="0dp"
@@ -28,7 +40,7 @@
         android:clipToPadding="false"
         tools:listitem="@layout/item_precio"
         android:paddingBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tituloPrecios"
+        app:layout_constraintTop_toBottomOf="@id/btnNuevoPrecio"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

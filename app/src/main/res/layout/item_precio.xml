@@ -11,7 +11,6 @@
         android:id="@+id/nombreServicio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Servicio: Ploteo"
         android:textStyle="bold"
         android:textColor="@color/verde_oscuro"
         android:textSize="14sp"
@@ -22,7 +21,6 @@
         android:id="@+id/descripcionPrecio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Diseño a una tinta"
         android:textStyle="bold"
         android:textColor="@color/verde_oscuro"
         android:textSize="16sp"
@@ -32,7 +30,6 @@
         android:id="@+id/tipoUnidadPrecio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Unidad: millar"
         android:layout_marginTop="4dp"
         android:textColor="@color/gris_oscuro"
         android:textSize="14sp"
@@ -42,9 +39,35 @@
         android:id="@+id/valorPrecio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="$12500.00"
         android:layout_marginTop="2dp"
         android:textColor="@color/negro"
         android:textSize="14sp"
         android:fontFamily="@font/poppins_regular" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="end">
+
+        <Button
+            android:id="@+id/btnEditarPrecio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_editar"
+            android:textSize="14sp"
+            android:backgroundTint="@color/verde_manzana"
+            android:textColor="@color/blanco"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btnEliminarPrecio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_eliminar"
+            android:textSize="14sp"
+            android:backgroundTint="@color/rojo_manzana"
+            android:textColor="@color/blanco" />
+    </LinearLayout>
 </LinearLayout>

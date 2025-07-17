@@ -28,7 +28,7 @@ import android.text.TextUtils;
 import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
 
-public class NuevoServicioActivity extends AppCompatActivity {
+public class CrearServicioActivity extends AppCompatActivity {
     private EditText inputNombre, inputDescripcion;
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView imagePreview;
@@ -37,7 +37,7 @@ public class NuevoServicioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nuevo_servicio);
+        setContentView(R.layout.activity_crear_servicio);
 
         inputNombre = findViewById(R.id.inputNombre);
         inputDescripcion = findViewById(R.id.inputDescripcion);

@@ -44,7 +44,7 @@ public class ServiciosActivity extends AppCompatActivity {
 
         Button btnNuevoServicio = findViewById(R.id.btnNuevoServicio);
         btnNuevoServicio.setOnClickListener(v -> {
-            Intent intent = new Intent(ServiciosActivity.this, NuevoServicioActivity.class);
+            Intent intent = new Intent(ServiciosActivity.this, CrearServicioActivity.class);
             startActivityForResult(intent, REQUEST_NUEVO_SERVICIO);
         });
     }
