@@ -36,6 +36,7 @@
         <!-- Precios -->
         <activity android:name=".view.PreciosActivity" />
         <activity android:name=".view.CrearPrecioActivity" />
+        <activity android:name=".view.EditarPrecioActivity" />
         <!-- Usuarios -->
         <activity android:name=".view.UsuariosActivity" />
     </application>

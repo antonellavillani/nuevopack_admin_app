@@ -29,6 +29,7 @@ public class PreciosActivity extends AppCompatActivity {
     private final ArrayList<Precio> listaPrecios = new ArrayList<>();
     private PrecioAdapter adapter;
     private static final int REQUEST_NUEVO_PRECIO = 200;
+    private static final int REQUEST_EDITAR_PRECIO = 201;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,15 @@ public class PreciosActivity extends AppCompatActivity {
         recycler.setAdapter(adapter);
 
         cargarPrecios();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ((requestCode == REQUEST_NUEVO_PRECIO || requestCode == REQUEST_EDITAR_PRECIO) && resultCode == RESULT_OK) {
+            cargarPrecios(); // Recargar los precios para mostrar cambios
+        }
     }
 
     private void cargarPrecios() {
@@ -92,11 +102,4 @@ public class PreciosActivity extends AppCompatActivity {
         }).start();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_NUEVO_PRECIO && resultCode == RESULT_OK) {
-            cargarPrecios();
-        }
-    }
 }
