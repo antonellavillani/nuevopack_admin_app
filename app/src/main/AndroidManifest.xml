@@ -38,8 +38,19 @@
         <activity android:name=".view.CrearPrecioActivity" />
         <activity android:name=".view.EditarPrecioActivity" />
         <!-- Usuarios -->
-        <activity android:name=".view.UsuariosActivity" />
+        <activity android:name=".view.UsuariosActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="nuevopack"
+                    android:host="com.nuevopack.admin" />
+            </intent-filter>
+        </activity>
         <activity android:name=".view.CrearUsuarioActivity" />
+        <activity android:name=".view.EditarUsuarioActivity" />
     </application>
 
 </manifest>

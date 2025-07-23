@@ -8,8 +8,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.nuevopack.admin.model.Usuario;
+import com.nuevopack.admin.util.ApiConfig;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,7 +23,7 @@ public class UsuarioController {
     }
 
     public static void obtenerUsuarios(Context context, UsuarioCallback callback) {
-        String url = "http://10.0.2.2/nuevopack/config/get_usuarios.php";
+        String url = ApiConfig.BASE_URL + "config/get_usuarios.php";
 
         RequestQueue queue = Volley.newRequestQueue(context);
 
@@ -35,9 +35,10 @@ public class UsuarioController {
                             JSONObject obj = response.getJSONObject(i);
                             int id = obj.getInt("id");
                             String nombre = obj.getString("nombre");
+                            String apellido = obj.getString("apellido");
                             String email = obj.getString("email");
 
-                            lista.add(new Usuario(id, nombre, email));
+                            lista.add(new Usuario(id, nombre, apellido, email));
                         }
                         callback.onSuccess(lista);
                     } catch (JSONException e) {
