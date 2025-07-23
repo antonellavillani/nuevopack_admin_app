@@ -1,6 +1,7 @@
 package com.nuevopack.admin.view;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,6 +36,9 @@ public class CrearUsuarioActivity extends AppCompatActivity {
         btnCrearUsuario = findViewById(R.id.btnCrearUsuario);
 
         btnCrearUsuario.setOnClickListener(v -> crearUsuario());
+
+        Button btnResetearContrasena = findViewById(R.id.btnResetearContrasena);
+        btnResetearContrasena.setVisibility(View.GONE);
     }
 
     private void crearUsuario() {

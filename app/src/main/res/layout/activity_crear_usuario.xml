@@ -76,11 +76,55 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <CheckBox
+            android:id="@+id/checkAprobado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/checkbox_aprobado"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:id="@+id/textoInfoAprobado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/checkbox_aprobado_texto"
+            android:textSize="12sp"
+            android:textColor="@color/gris_oscuro"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/btnResetearContrasena"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_restablecer_contrasena"
+            android:backgroundTint="@color/verde_manzana"
+            android:layout_marginTop="12dp" />
+
         <Button
             android:id="@+id/btnCrearUsuario"
             android:text="@string/boton_guardar"
+            android:textColor="@color/blanco"
+            android:backgroundTint="@color/verde_oscuro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBarReset"
+            android:visibility="gone"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/mensajeSeguro"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/negro"
+            android:textSize="14sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
     </LinearLayout>
 </ScrollView>
