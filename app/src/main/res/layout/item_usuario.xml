@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -44,4 +45,31 @@
         android:textColor="@color/negro"
         android:textStyle="italic"
         android:fontFamily="@font/poppins_regular" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="end">
+
+        <Button
+            android:id="@+id/btnEditarUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_editar"
+            android:textSize="14sp"
+            android:backgroundTint="@color/verde_manzana"
+            android:textColor="@color/blanco"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btnEliminarUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_eliminar"
+            android:textSize="14sp"
+            android:backgroundTint="@color/rojo_manzana"
+            android:textColor="@color/blanco" />
+    </LinearLayout>
 </LinearLayout>

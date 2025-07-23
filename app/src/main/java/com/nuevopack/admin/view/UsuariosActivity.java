@@ -1,6 +1,7 @@
 package com.nuevopack.admin.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.adapter.UsuarioAdapter;
-import com.nuevopack.admin.model.UsuarioEspecial;
+import com.nuevopack.admin.model.Usuario;
 import com.nuevopack.admin.util.ApiConfig;
 
 import org.json.JSONArray;
@@ -26,14 +27,26 @@ import java.util.ArrayList;
 
 public class UsuariosActivity extends AppCompatActivity {
 
-    private final ArrayList<UsuarioEspecial> listaUsuarios = new ArrayList<>();
+    private final ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     private UsuarioAdapter adapter;
-    private static final int REQUEST_NUEVO_SERVICIO = 300;
+    private static final int REQUEST_NUEVO_USUARIO = 300;
+    private static final int REQUEST_EDITAR_USUARIO = 301;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        Uri data = intent.getData();
+
+        if (data != null) {
+            String mensaje = data.getQueryParameter("mensaje");
+            if (mensaje != null && mensaje.equals("ok")) {
+                Toast.makeText(this, "Contraseña modificada con éxito", Toast.LENGTH_LONG).show();
+            }
+        }
+
         setContentView(R.layout.activity_usuarios);
 
         RecyclerView recycler = findViewById(R.id.recyclerUsuarios);
@@ -45,8 +58,8 @@ public class UsuariosActivity extends AppCompatActivity {
 
         Button btnNuevoUsuario = findViewById(R.id.btnNuevoUsuario);
         btnNuevoUsuario.setOnClickListener(v -> {
-            Intent intent = new Intent(UsuariosActivity.this, CrearUsuarioActivity.class);
-            startActivityForResult(intent, REQUEST_NUEVO_SERVICIO);
+            Intent crearIntent = new Intent(UsuariosActivity.this, CrearUsuarioActivity.class);
+            startActivityForResult(crearIntent, REQUEST_NUEVO_USUARIO);
         });
     }
 
@@ -54,7 +67,7 @@ public class UsuariosActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_NUEVO_SERVICIO && resultCode == RESULT_OK) {
+        if ((requestCode == REQUEST_NUEVO_USUARIO || requestCode == REQUEST_EDITAR_USUARIO) && resultCode == RESULT_OK) {
             cargarUsuarios(); // recarga la lista
         }
     }
@@ -74,7 +87,7 @@ public class UsuariosActivity extends AppCompatActivity {
                 }
 
                 JSONArray array = new JSONArray(json.toString());
-                ArrayList<UsuarioEspecial> nuevos = new ArrayList<>();
+                ArrayList<Usuario> nuevos = new ArrayList<>();
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject obj = array.getJSONObject(i);
                     int id = obj.getInt("id");
@@ -83,7 +96,7 @@ public class UsuariosActivity extends AppCompatActivity {
                     String email = obj.getString("email");
                     String telefono = obj.getString("telefono");
                     boolean aprobado = obj.getInt("aprobado") == 1;
-                    nuevos.add(new UsuarioEspecial(id, nombre, apellido, email, telefono, aprobado));
+                    nuevos.add(new Usuario(id, nombre, apellido, email, telefono, aprobado));
                 }
 
                 runOnUiThread(() -> {
