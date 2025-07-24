@@ -63,8 +63,7 @@
             <!-- Input Contraseña -->
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margen_input">
+                android:layout_height="wrap_content">
 
                 <EditText
                     style="@style/EditTextLogin"
@@ -84,14 +83,22 @@
                     android:layout_height="28dp"
                     android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="12dp"
-                    android:src="@drawable/ic_show_password"
-                    android:contentDescription="@string/mostrar_contraseña"
+                    android:layout_marginBottom="12dp"
                     android:background="?android:selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:focusable="true"/>
+                    android:contentDescription="@string/mostrar_contraseña"
+                    android:focusable="true"
+                    android:src="@drawable/ic_show_password" />
             </FrameLayout>
 
-            <!-- Botón Iniciar Sesión -->
+            <CheckBox
+                android:id="@+id/checkboxRecordarme"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:text="@string/checkbox_mantener_sesion" />
+
+                <!-- Botón Iniciar Sesión -->
             <Button
                 style="@style/Button"
                 android:id="@+id/btnLogin"

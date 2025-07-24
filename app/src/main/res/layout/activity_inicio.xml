@@ -240,6 +240,7 @@
             style="@style/SidebarButton" />
 
         <Button
+            android:id="@+id/btnCerrarSesion"
             android:text="Cerrar Sesión"
             style="@style/SidebarButton" />
     </LinearLayout>

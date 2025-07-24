@@ -12,6 +12,7 @@
     <string name="login_input_contrasena">Contraseña</string>
     <string name="login_boton_iniciar_sesion">Iniciar sesión</string>
     <string name="mostrar_contraseña">Mostrar/ocultar contraseña</string>
+    <string name="checkbox_mantener_sesion">Mantener la sesión iniciada</string>
 
     <!-- Pantalla Servicios -->
     <string name="titulo_gestion_servicios">Gestión de Servicios</string>

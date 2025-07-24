@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.widget.CheckBox;
+
 import com.nuevopack.admin.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,11 +27,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Inputs
+        // Referencias a views
         EditText inputEmail = findViewById(R.id.inputEmail);
         EditText inputPassword = findViewById(R.id.inputPassword);
         ImageView eyeToggle = findViewById(R.id.eyeToggle);
         Button btnLogin = findViewById(R.id.btnLogin);
+        CheckBox checkboxRecordarme = findViewById(R.id.checkboxRecordarme);
+
+        // Verificar si hay una sesión activa
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean sesionActiva = prefs.getBoolean("mantenerSesion", false);
+
+        if (sesionActiva) {
+            startActivity(new Intent(MainActivity.this, InicioActivity.class));
+            finish(); // Cerrar MainActivity
+        }
 
         // Mostrar/ocultar contraseña
         eyeToggle.setOnClickListener(v -> {
@@ -58,8 +72,17 @@ public class MainActivity extends AppCompatActivity {
 
             loginController.validarLogin(this, usuario, (exito, mensaje) -> {
                 if (exito) {
+                    // Guardar preferencias si se marcó el checkbox 'Mantener sesión iniciada'
+                    if (checkboxRecordarme.isChecked()) {
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putBoolean("mantenerSesion", true);
+                        editor.putString("emailGuardado", email);
+                        editor.apply();
+                    }
+
                     Intent intent = new Intent(MainActivity.this, InicioActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
                 }

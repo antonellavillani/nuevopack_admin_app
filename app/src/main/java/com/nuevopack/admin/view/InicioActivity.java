@@ -1,13 +1,17 @@
 package com.nuevopack.admin.view;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -20,7 +24,6 @@ import com.nuevopack.admin.adapter.ActividadAdapter;
 import com.nuevopack.admin.controller.DashboardController;
 import com.nuevopack.admin.model.ResumenCard;
 import com.nuevopack.admin.model.Actividad;
-import com.nuevopack.admin.model.Alerta;
 import com.nuevopack.admin.util.ApiConfig;
 
 import org.json.JSONArray;
@@ -78,6 +81,32 @@ public class InicioActivity extends AppCompatActivity {
             Intent intent = new Intent(InicioActivity.this, UsuariosActivity.class);
             startActivity(intent);
             drawerLayout.closeDrawer(GravityCompat.START);
+        });
+
+        // Botón Cerrar sesión
+        Button btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
+        btnCerrarSesion.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setTitle("Cerrar sesión")
+                    .setMessage("¿Seguro que quiere cerrar su sesión?")
+                    .setPositiveButton("Sí", (dialog, which) -> {
+                        // Borrar SharedPreferences
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.remove("mantenerSesion");
+                        editor.apply();
+
+                        // Mostrar Toast de confirmación
+                        Toast.makeText(InicioActivity.this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
+
+                        // Redirigir al login
+                        Intent intent = new Intent(InicioActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Limpiar el back stack
+                        startActivity(intent);
+                        finish();
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         });
 
         // Instanciar el controlador
