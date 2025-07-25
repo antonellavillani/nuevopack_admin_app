@@ -25,7 +25,7 @@ public class CrearUsuarioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crear_usuario);
+        setContentView(R.layout.activity_usuario_form);
 
         inputNombre = findViewById(R.id.inputNombre);
         inputApellido = findViewById(R.id.inputApellido);

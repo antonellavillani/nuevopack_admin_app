@@ -27,7 +27,7 @@
                 android:layout_height="32dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_menu"
-                android:contentDescription="Menú lateral"
+                android:contentDescription="@string/menu_lateral"
                 app:tint="@color/blanco"
                 android:clickable="true"
                 android:focusable="true" />
@@ -39,7 +39,7 @@
                 android:layout_height="48dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/logo_nuevopack_navbar"
-                android:contentDescription="Logo NuevoPack" />
+                android:contentDescription="@string/logo_nuevoPack" />
 
             <!-- Ícono de cuenta -->
             <ImageView
@@ -50,7 +50,7 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_account"
                 app:tint="@color/blanco"
-                android:contentDescription="Cuenta" />
+                android:contentDescription="@string/logo_cuenta" />
         </RelativeLayout>
 
         <!-- Contenido -->
@@ -69,7 +69,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Panel de Administrador"
+                    android:text="@string/titulo_panel_admin"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:fontFamily="@font/poppins_regular"
@@ -78,9 +78,9 @@
 
                 <!-- Subtítulo -->
                 <TextView
+                    android:id="@+id/tituloBienvenido"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Bienvenido, Usuario"
                     android:textSize="18sp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/poppins_regular"
@@ -131,7 +131,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Accesos Rápidos"
+                    android:text="@string/titulo_accesos_rapidos"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:fontFamily="@font/poppins_regular"
@@ -142,24 +142,24 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nuevo servicio"
+                    android:text="@string/atajo_nuevo_servicio"
                     style="@style/ButtonDashboard" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nuevo precio"
+                    android:text="@string/atajo_nuevo_precio"
                     style="@style/ButtonDashboard"
                     android:layout_marginTop="8dp" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nuevo usuario"
+                    android:text="@string/atajo_nuevo_usuario"
                     style="@style/ButtonDashboard"
                     android:layout_marginTop="8dp" />
 
-                <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                <androidx.core.widget.NestedScrollView
                     android:id="@+id/scrollView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -214,34 +214,33 @@
             android:src="@drawable/ic_close"
             android:layout_gravity="start"
             android:layout_margin="16dp"
-            android:contentDescription="Cerrar menú"
             app:tint="@color/blanco"
             android:clickable="true"
             android:focusable="true" />
 
         <Button
             android:id="@+id/btnInicio"
-            android:text="Inicio"
+            android:text="@string/btn_sidebar_inicio"
             style="@style/SidebarButton" />
 
         <Button
             android:id="@+id/btnServicios"
-            android:text="Servicios"
+            android:text="@string/btn_sidebar_servicios"
             style="@style/SidebarButton" />
 
         <Button
             android:id="@+id/btnPrecios"
-            android:text="Precios"
+            android:text="@string/btn_sidebar_precios"
             style="@style/SidebarButton" />
 
         <Button
             android:id="@+id/btnUsuarios"
-            android:text="Usuarios"
+            android:text="@string/btn_sidebar_usuarios"
             style="@style/SidebarButton" />
 
         <Button
             android:id="@+id/btnCerrarSesion"
-            android:text="Cerrar Sesión"
+            android:text="@string/btn_sidebar_cerrar_sesion"
             style="@style/SidebarButton" />
     </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

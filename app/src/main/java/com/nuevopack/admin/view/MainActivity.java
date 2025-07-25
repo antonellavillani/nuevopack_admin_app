@@ -37,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
         // Verificar si hay una sesión activa
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean sesionActiva = prefs.getBoolean("mantenerSesion", false);
+        String nombreUsuario = prefs.getString("nombreUsuario", null);
 
-        if (sesionActiva) {
+        if (sesionActiva && nombreUsuario != null && !nombreUsuario.isEmpty()) {
             startActivity(new Intent(MainActivity.this, InicioActivity.class));
             finish(); // Cerrar MainActivity
         }
@@ -70,13 +71,14 @@ public class MainActivity extends AppCompatActivity {
             Usuario usuario = new Usuario(email, password);
             LoginController loginController = new LoginController();
 
-            loginController.validarLogin(this, usuario, (exito, mensaje) -> {
+            loginController.validarLogin(this, usuario, (exito, mensaje, nombre) -> {
                 if (exito) {
                     // Guardar preferencias si se marcó el checkbox 'Mantener sesión iniciada'
                     if (checkboxRecordarme.isChecked()) {
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putBoolean("mantenerSesion", true);
                         editor.putString("emailGuardado", email);
+                        editor.putString("nombreUsuario", nombre);
                         editor.apply();
                     }
 

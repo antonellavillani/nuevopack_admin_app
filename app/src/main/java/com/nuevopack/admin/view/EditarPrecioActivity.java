@@ -31,7 +31,7 @@ public class EditarPrecioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crear_precio);
+        setContentView(R.layout.activity_precio_form);
 
         titulo = findViewById(R.id.textViewTitulo);
         spinnerServicios = findViewById(R.id.spinnerServicios);

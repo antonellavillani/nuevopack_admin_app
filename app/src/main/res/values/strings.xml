@@ -4,6 +4,11 @@
     <string name="boton_eliminar">Eliminar</string>
     <string name="boton_guardar">Guardar</string>
 
+    <!-- contentDescriptions para elementos visuales -->
+    <string name="menu_lateral">Menú lateral</string>
+    <string name="logo_nuevoPack">Logo NuevoPack</string>
+    <string name="logo_cuenta">Logo Mi Cuenta</string>
+
     <!-- Pantalla Login -->
     <string name="app_name">NuevoPack Admin</string>
     <string name="logo_nuevopack_login">Logo NuevoPack</string>
@@ -13,6 +18,20 @@
     <string name="login_boton_iniciar_sesion">Iniciar sesión</string>
     <string name="mostrar_contraseña">Mostrar/ocultar contraseña</string>
     <string name="checkbox_mantener_sesion">Mantener la sesión iniciada</string>
+
+    <!-- SideBar -->
+    <string name="btn_sidebar_inicio">Inicio</string>
+    <string name="btn_sidebar_servicios">Servicios</string>
+    <string name="btn_sidebar_precios">Precios</string>
+    <string name="btn_sidebar_usuarios">Usuarios</string>
+    <string name="btn_sidebar_cerrar_sesion">Cerrar sesión</string>
+
+    <!-- Pantalla Inicio -->
+    <string name="titulo_panel_admin">Panel de Administrador NuevoPack</string>
+    <string name="titulo_accesos_rapidos">Accesos rápidos</string>
+    <string name="atajo_nuevo_servicio">Nuevo servicio</string>
+    <string name="atajo_nuevo_precio">Nuevo precio</string>
+    <string name="atajo_nuevo_usuario">Nuevo usuario</string>
 
     <!-- Pantalla Servicios -->
     <string name="titulo_gestion_servicios">Gestión de Servicios</string>

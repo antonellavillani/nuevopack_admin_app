@@ -13,7 +13,6 @@
             android:id="@+id/nombreCompleto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nombre del servicio"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/negro"
@@ -32,7 +31,6 @@
             android:id="@+id/descripcionServicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Descripción completa del servicio"
             android:textSize="16sp"
             android:textColor="@color/gris_oscuro"
             android:fontFamily="@font/poppins_regular" />

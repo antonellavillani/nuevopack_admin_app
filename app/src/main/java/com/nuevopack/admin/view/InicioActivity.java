@@ -45,6 +45,15 @@ public class InicioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
+        // Obtener nombre del usuario de SharedPreferences
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String nombreUsuario = prefs.getString("nombreUsuario", "Usuario");
+
+        // Mostrar en el TextView de bienvenida
+        TextView txtBienvenida = findViewById(R.id.tituloBienvenido);
+        txtBienvenida.setText("Bienvenido, " + nombreUsuario);
+
+
         // Menú lateral
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         ImageView iconMenu = findViewById(R.id.iconMenu);
@@ -91,7 +100,6 @@ public class InicioActivity extends AppCompatActivity {
                     .setMessage("¿Seguro que quiere cerrar su sesión?")
                     .setPositiveButton("Sí", (dialog, which) -> {
                         // Borrar SharedPreferences
-                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.remove("mantenerSesion");
                         editor.apply();

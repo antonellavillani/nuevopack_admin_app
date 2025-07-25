@@ -18,7 +18,6 @@
             android:id="@+id/tituloCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Servicios"
             android:textStyle="bold"
             android:textSize="18sp"
             android:textColor="@color/verde_oscuro"
@@ -28,7 +27,6 @@
             android:id="@+id/textoCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4 cargados"
             android:layout_marginTop="4dp"
             android:textColor="@color/gris_oscuro"
             android:fontFamily="@font/poppins_regular" />

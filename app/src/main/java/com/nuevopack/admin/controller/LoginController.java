@@ -9,6 +9,8 @@ import com.nuevopack.admin.model.Usuario;
 
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -34,24 +36,27 @@ public class LoginController {
                 os.close();
 
                 // Leer respuesta
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 StringBuilder result = new StringBuilder();
-                int ch;
-                while ((ch = conn.getInputStream().read()) != -1) {
-                    result.append((char) ch);
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
                 }
-
+                reader.close();
                 conn.disconnect();
 
                 JSONObject respuesta = new JSONObject(result.toString());
                 boolean success = respuesta.getBoolean("success");
-                String mensaje = respuesta.has("message") ? respuesta.getString("message") : "";
+                String mensaje = respuesta.optString("message", "");
+                String nombre = respuesta.optString("nombre", "");
 
-                new Handler(Looper.getMainLooper()).post(() -> callback.onResultado(success, mensaje));
+                // Llamar al callback en el hilo principal
+                new Handler(Looper.getMainLooper()).post(() -> callback.onResultado(success, mensaje, nombre));
 
             } catch (Exception e) {
                 Log.e("LoginController", "Error al conectar con el servidor: " + e.getMessage(), e);
                 new Handler(Looper.getMainLooper()).post(() -> {
-                    callback.onResultado(false, "Error al conectar con el servidor.");
+                    callback.onResultado(false, "Error al conectar con el servidor.", null);
                 });
             }
         }).start();

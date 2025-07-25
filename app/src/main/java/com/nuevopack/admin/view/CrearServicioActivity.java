@@ -37,7 +37,7 @@ public class CrearServicioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crear_servicio);
+        setContentView(R.layout.activity_servicio_form);
 
         inputNombre = findViewById(R.id.inputNombre);
         inputDescripcion = findViewById(R.id.inputDescripcion);
