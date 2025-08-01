@@ -189,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp">
                         <include android:id="@+id/includeCardAlertas"
-                            layout="@layout/card_info" />
+                            layout="@layout/card_alertas" />
                 </LinearLayout>
 
             </LinearLayout>

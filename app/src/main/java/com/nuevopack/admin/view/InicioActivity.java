@@ -1,5 +1,10 @@
 package com.nuevopack.admin.view;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.adapter.ActividadAdapter;
+import com.nuevopack.admin.adapter.AlertasAdapter;
 import com.nuevopack.admin.controller.DashboardController;
 import com.nuevopack.admin.model.ResumenCard;
 import com.nuevopack.admin.model.Actividad;
@@ -51,8 +57,8 @@ public class InicioActivity extends AppCompatActivity {
 
         // Mostrar en el TextView de bienvenida
         TextView txtBienvenida = findViewById(R.id.tituloBienvenido);
-        txtBienvenida.setText("Bienvenido, " + nombreUsuario);
-
+        String mensajeBienvenida = getString(R.string.titulo_bienvenido, nombreUsuario);
+        txtBienvenida.setText(mensajeBienvenida);
 
         // Menú lateral
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
@@ -117,91 +123,6 @@ public class InicioActivity extends AppCompatActivity {
                     .show();
         });
 
-        // Instanciar el controlador
-        DashboardController dashboard = new DashboardController();
-
-        // === Servicios ===
-        View cardServicios = findViewById(R.id.includeCardServicios);
-        ResumenCard serviciosCard = dashboard.obtenerResumenServicios();
-        TextView tituloServicios = cardServicios.findViewById(R.id.tituloCard);
-        TextView textoServicios = cardServicios.findViewById(R.id.textoCard);
-        tituloServicios.setText(serviciosCard.getTitulo());
-        textoServicios.setText(serviciosCard.getDescripcion());
-
-        // === Precios ===
-        View cardPrecios = findViewById(R.id.includeCardPrecios);
-        ResumenCard preciosCard = dashboard.obtenerResumenPrecios();
-        TextView tituloPrecios = cardPrecios.findViewById(R.id.tituloCard);
-        TextView textoPrecios = cardPrecios.findViewById(R.id.textoCard);
-        tituloPrecios.setText(preciosCard.getTitulo());
-        textoPrecios.setText(preciosCard.getDescripcion());
-
-        // === Usuarios ===
-        View cardUsuarios = findViewById(R.id.includeCardUsuarios);
-        ResumenCard usuariosCard = dashboard.obtenerResumenUsuarios();
-        TextView tituloUsuarios = cardUsuarios.findViewById(R.id.tituloCard);
-        TextView textoUsuarios = cardUsuarios.findViewById(R.id.textoCard);
-        tituloUsuarios.setText(usuariosCard.getTitulo());
-        textoUsuarios.setText(usuariosCard.getDescripcion());
-
-        // === Actividad Reciente ===
-        View cardActividad = findViewById(R.id.includeCardActividad);
-        RecyclerView recyclerActividad = cardActividad.findViewById(R.id.recyclerActividad);
-        recyclerActividad.setLayoutManager(new LinearLayoutManager(this));
-
-        List<Actividad> listaActividades = new ArrayList<>();
-        ActividadAdapter adapter = new ActividadAdapter(listaActividades);
-        recyclerActividad.setAdapter(adapter);
-
-        String url = ApiConfig.BASE_URL + "backend/api/obtener_actividades.php";
-        new Thread(() -> {
-            try {
-                HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-                conn.setRequestMethod("GET");
-                conn.connect();
-
-                InputStream in = new BufferedInputStream(conn.getInputStream());
-                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-                StringBuilder json = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    json.append(line);
-                }
-
-                JSONArray jsonArray = new JSONArray(json.toString());
-                List<Actividad> nuevasActividades = new ArrayList<>();
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject obj = jsonArray.getJSONObject(i);
-                    String descripcion = obj.getString("descripcion");
-                    String fecha = obj.getString("fecha");
-                    nuevasActividades.add(new Actividad(descripcion, fecha));
-                }
-
-                runOnUiThread(() -> {
-                    listaActividades.clear();
-                    listaActividades.addAll(nuevasActividades);
-                    adapter.notifyDataSetChanged();
-                });
-
-            } catch (Exception e) {
-                runOnUiThread(() -> {
-                    listaActividades.clear();
-                    listaActividades.add(new Actividad("Sin conexión con el servidor de base de datos", ""));
-                    adapter.notifyDataSetChanged();
-                });
-            }
-        }).start();
-
-        // === Alertas ===
-        View cardAlertas = findViewById(R.id.includeCardAlertas);
-        RecyclerView recycler = cardAlertas.findViewById(R.id.recyclerActividad);
-        TextView textoAlerta = cardAlertas.findViewById(R.id.contenidoInfoAlerta);
-
-        // Ocultar RecyclerView y mostrar el TextView
-        recycler.setVisibility(View.GONE);
-        textoAlerta.setVisibility(View.VISIBLE);
-        textoAlerta.setText("• Todos los sistemas funcionan correctamente.");
-
         // Accesos rápidos
         Button btnNuevoServicio = findViewById(R.id.btnAccesoNuevoServicio);
         Button btnNuevoPrecio = findViewById(R.id.btnAccesoNuevoPrecio);
@@ -223,4 +144,121 @@ public class InicioActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cargarDatosDashboard(); // Se recarga siempre que la Activity vuelve al frente
+    }
+
+    private void cargarDatosDashboard() {
+        DashboardController dashboard = new DashboardController();
+
+        // Servicios
+        View cardServicios = findViewById(R.id.includeCardServicios);
+        ResumenCard serviciosCard = dashboard.obtenerResumenServicios();
+        ((TextView) cardServicios.findViewById(R.id.tituloCard)).setText(serviciosCard.getTitulo());
+        ((TextView) cardServicios.findViewById(R.id.textoCard)).setText(serviciosCard.getDescripcion());
+
+        // Precios
+        View cardPrecios = findViewById(R.id.includeCardPrecios);
+        ResumenCard preciosCard = dashboard.obtenerResumenPrecios();
+        ((TextView) cardPrecios.findViewById(R.id.tituloCard)).setText(preciosCard.getTitulo());
+        ((TextView) cardPrecios.findViewById(R.id.textoCard)).setText(preciosCard.getDescripcion());
+
+        // Usuarios
+        View cardUsuarios = findViewById(R.id.includeCardUsuarios);
+        ResumenCard usuariosCard = dashboard.obtenerResumenUsuarios();
+        ((TextView) cardUsuarios.findViewById(R.id.tituloCard)).setText(usuariosCard.getTitulo());
+        ((TextView) cardUsuarios.findViewById(R.id.textoCard)).setText(usuariosCard.getDescripcion());
+
+        // Actividad reciente
+        View cardActividad = findViewById(R.id.includeCardActividad);
+        RecyclerView recyclerActividad = cardActividad.findViewById(R.id.recyclerActividad);
+        List<Actividad> listaActividades = new ArrayList<>();
+        ActividadAdapter adapter = new ActividadAdapter(listaActividades);
+        recyclerActividad.setLayoutManager(new LinearLayoutManager(this));
+        recyclerActividad.setAdapter(adapter);
+
+        String url = ApiConfig.BASE_URL + "backend/api/obtener_actividades.php";
+        new Thread(() -> {
+            try {
+                HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+                conn.setRequestMethod("GET");
+                conn.connect();
+
+                InputStream in = new BufferedInputStream(conn.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                StringBuilder json = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    json.append(line);
+                }
+
+                JSONArray jsonArray = new JSONArray(json.toString());
+                List<Actividad> nuevasActividades = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    nuevasActividades.add(new Actividad(
+                            obj.getString("descripcion"),
+                            obj.getString("fecha")
+                    ));
+                }
+
+                runOnUiThread(() -> {
+                    listaActividades.clear();
+                    listaActividades.addAll(nuevasActividades);
+                    adapter.notifyDataSetChanged();
+                });
+
+            } catch (Exception e) {
+                runOnUiThread(() -> {
+                    listaActividades.clear();
+                    listaActividades.add(new Actividad("Sin conexión con el servidor de base de datos", ""));
+                    adapter.notifyDataSetChanged();
+                });
+            }
+        }).start();
+
+        // Alertas
+        View cardAlertas = findViewById(R.id.includeCardAlertas);
+        RecyclerView recycler = cardAlertas.findViewById(R.id.recyclerAlertas);
+        TextView textoAlerta = cardAlertas.findViewById(R.id.contenidoInfoAlerta);
+
+        recycler.setVisibility(View.GONE);
+        textoAlerta.setVisibility(View.VISIBLE);
+        textoAlerta.setText(R.string.texto_cargando_alertas);
+
+        String urlAlertas = ApiConfig.BASE_URL + "backend/api/get_alertas.php";
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlAlertas, null,
+                response -> {
+                    try {
+                        JSONArray alertas = response.getJSONArray("alertas");
+
+                        if (alertas.length() == 0) {
+                            textoAlerta.setText(R.string.texto_sin_alertas);
+                        } else {
+                            ArrayList<String> listaAlertas = new ArrayList<>();
+                            for (int i = 0; i < alertas.length(); i++) {
+                                listaAlertas.add("❌ " + alertas.getString(i));
+                            }
+
+                            recycler.setVisibility(View.VISIBLE);
+                            textoAlerta.setVisibility(View.GONE);
+                            recycler.setLayoutManager(new LinearLayoutManager(this));
+                            recycler.setAdapter(new AlertasAdapter(listaAlertas));
+                        }
+
+                    } catch (Exception e) {
+                        textoAlerta.setText(R.string.error_procesar_alertas);
+                    }
+                },
+                error -> textoAlerta.setText(R.string.error_cargado_alertas)
+        );
+
+        queue.add(request);
+    }
+
 }

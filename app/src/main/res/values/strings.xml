@@ -28,10 +28,19 @@
 
     <!-- Pantalla Inicio -->
     <string name="titulo_panel_admin">Panel de Administrador NuevoPack</string>
+    <string name="titulo_bienvenido">Bienvenido, %1$s</string>
     <string name="titulo_accesos_rapidos">Accesos rápidos</string>
     <string name="atajo_nuevo_servicio">Nuevo servicio</string>
     <string name="atajo_nuevo_precio">Nuevo precio</string>
     <string name="atajo_nuevo_usuario">Nuevo usuario</string>
+    <string name="titulo_actividad_reciente">Actividad reciente</string>
+    <string name="titulo_alertas">Alertas</string>
+    <string name="texto_cargando_actividad_reciente">⏳ Cargando actividad reciente…</string>
+    <string name="texto_sin_actividad_reciente">✅ No hay actividad reciente para mostrar.</string>
+    <string name="texto_cargando_alertas">⏳ Cargando alertas…</string>
+    <string name="texto_sin_alertas">✅ No hay alertas, todo está en orden.</string>
+    <string name="error_procesar_alertas">❌ Error al procesar las alertas.</string>
+    <string name="error_cargado_alertas">❌ Error al cargar las alertas.</string>
 
     <!-- Pantalla Servicios -->
     <string name="titulo_gestion_servicios">Gestión de Servicios</string>
@@ -48,7 +57,7 @@
     <string name="opcion_descripcion">Descripción</string>
     <string name="hint_descripcion_precios">Ej: Calendario chico</string>
     <string name="opcion_tipo_unidad">Tipo de unidad</string>
-    <string name="hint_tipo_unidad">Ej: Por unidad, por millar...</string>
+    <string name="hint_tipo_unidad">Ej: Por unidad, por millar…</string>
     <string name="opcion_precio">Precio</string>
     <string name="hint_precio">Ej: 1500</string>
 

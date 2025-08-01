@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
@@ -7,11 +8,11 @@
     android:layout_marginBottom="8dp">
 
     <TextView
-        android:id="@+id/textoActividad"
+        android:id="@+id/textoItemAlerta"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:textColor="@color/rojo_manzana"
         android:textSize="15sp"
-        android:textColor="@color/gris_oscuro"
-        android:fontFamily="@font/poppins_regular" />
+        android:fontFamily="@font/poppins_regular"/>
 </LinearLayout>
