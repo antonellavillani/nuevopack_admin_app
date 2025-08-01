@@ -71,20 +71,68 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"/>
 
-        <EditText android:id="@+id/inputRepetirPassword"
-            android:hint="@string/opcion_repetir_contrasena"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <TextView
             android:id="@+id/textoRequisitosPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
-            android:text="@string/texto_requisitos_contrasena"
+            android:text="@string/titulo_requisitos_contrasena"
             android:textColor="@color/gris_oscuro"
-            android:textSize="13sp" />
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:id="@+id/passwordRulesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="6dp">
+
+            <TextView
+                android:id="@+id/ruleLength"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/requisito_contrasena1"
+                android:textSize="15sp"
+                android:textColor="@color/gris_oscuro" />
+
+            <TextView
+                android:id="@+id/ruleMayuscula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/requisito_contrasena2"
+                android:textSize="15sp"
+                android:textColor="@color/gris_oscuro" />
+
+            <TextView
+                android:id="@+id/ruleMinuscula"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/requisito_contrasena3"
+                android:textSize="15sp"
+                android:textColor="@color/gris_oscuro" />
+
+            <TextView
+                android:id="@+id/ruleNumero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/requisito_contrasena4"
+                android:textSize="15sp"
+                android:textColor="@color/gris_oscuro" />
+
+            <TextView
+                android:id="@+id/ruleEspecial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/requisito_contrasena5"
+                android:textSize="15sp"
+                android:textColor="@color/gris_oscuro" />
+        </LinearLayout>
+
+        <EditText android:id="@+id/inputRepetirPassword"
+            android:hint="@string/opcion_repetir_contrasena"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <CheckBox
             android:id="@+id/checkAprobado"

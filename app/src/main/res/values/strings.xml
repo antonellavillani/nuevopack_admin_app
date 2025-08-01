@@ -65,7 +65,13 @@
     <string name="hint_telefono">Ej: 11 2233 4455</string>
     <string name="opcion_contrasena">Contraseña</string>
     <string name="opcion_repetir_contrasena">Repetir contraseña</string>
-    <string name="texto_requisitos_contrasena">La contraseña debe tener:\n• Al menos 8 caracteres\n• Una letra mayúscula\n• Una letra minúscula\n• Un número\n• Un carácter especial (como @, #, !, %, etc.)</string>
+    <string name="titulo_requisitos_contrasena">La contraseña debe tener:</string>
+    <string name="requisito_contrasena1">❌ Al menos 8 caracteres</string>
+    <string name="requisito_contrasena2">❌ Al menos una letra mayúscula</string>
+    <string name="requisito_contrasena3">❌ Al menos una letra minúscula</string>
+    <string name="requisito_contrasena4">❌ Al menos un número</string>
+    <string name="requisito_contrasena5">❌ Al menos un carácter especial</string>
+
     <string name="checkbox_aprobado">Aprobado</string>
     <string name="checkbox_aprobado_texto">Si esta opción está marcada, el usuario podrá ingresar al sistema. Si no, quedará deshabilitado.</string>
     <string name="boton_restablecer_contrasena">Restablecer contraseña</string>

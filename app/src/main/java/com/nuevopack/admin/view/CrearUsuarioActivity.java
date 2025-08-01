@@ -1,9 +1,14 @@
 package com.nuevopack.admin.view;
 
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +25,7 @@ import java.util.Map;
 public class CrearUsuarioActivity extends AppCompatActivity {
 
     private EditText inputNombre, inputApellido, inputEmail, inputTelefono, inputPassword, inputRepetirPassword;
+    private TextView ruleLength, ruleMayuscula, ruleMinuscula, ruleNumero, ruleEspecial;
     private Button btnCrearUsuario;
 
     @Override
@@ -32,6 +38,31 @@ public class CrearUsuarioActivity extends AppCompatActivity {
         inputEmail = findViewById(R.id.inputEmail);
         inputTelefono = findViewById(R.id.inputTelefono);
         inputPassword = findViewById(R.id.inputPassword);
+        ruleLength = findViewById(R.id.ruleLength);
+        ruleMayuscula = findViewById(R.id.ruleMayuscula);
+        ruleMinuscula = findViewById(R.id.ruleMinuscula);
+        ruleNumero = findViewById(R.id.ruleNumero);
+        ruleEspecial = findViewById(R.id.ruleEspecial);
+
+        inputPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String pass = s.toString();
+
+                actualizarEstado(ruleLength, pass.length() >= 8);
+                actualizarEstado(ruleMayuscula, pass.matches(".*[A-Z].*"));
+                actualizarEstado(ruleMinuscula, pass.matches(".*[a-z].*"));
+                actualizarEstado(ruleNumero, pass.matches(".*\\d.*"));
+                actualizarEstado(ruleEspecial, pass.matches(".*[!@#$%^&*()_+\\-={}\\[\\]:;\"'<>,.?/].*"));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
         inputRepetirPassword = findViewById(R.id.inputRepetirPassword);
         btnCrearUsuario = findViewById(R.id.btnCrearUsuario);
 
@@ -39,6 +70,21 @@ public class CrearUsuarioActivity extends AppCompatActivity {
 
         Button btnResetearContrasena = findViewById(R.id.btnResetearContrasena);
         btnResetearContrasena.setVisibility(View.GONE);
+    }
+
+    private void actualizarEstado(TextView regla, boolean cumplido) {
+        String textoOriginal = regla.getText().toString()
+                .replace("❌ ", "")
+                .replace("✅ ", "");
+        if (cumplido) {
+            regla.setText("✅ " + textoOriginal);
+            regla.setTextColor(getResources().getColor(R.color.verde_claro));
+            regla.setTypeface(null, Typeface.BOLD);
+        } else {
+            regla.setText("❌ " + textoOriginal);
+            regla.setTextColor(getResources().getColor(R.color.gris_oscuro));
+            regla.setTypeface(null, Typeface.NORMAL);
+        }
     }
 
     private void crearUsuario() {
