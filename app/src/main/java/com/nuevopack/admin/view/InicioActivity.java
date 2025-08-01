@@ -179,6 +179,13 @@ public class InicioActivity extends AppCompatActivity {
         ActividadAdapter adapter = new ActividadAdapter(listaActividades);
         recyclerActividad.setLayoutManager(new LinearLayoutManager(this));
         recyclerActividad.setAdapter(adapter);
+        TextView textoActividad = cardActividad.findViewById(R.id.contenidoInfoAlerta);
+
+        // Mostrar mensaje de carga
+        recyclerActividad.setVisibility(View.GONE);
+        textoActividad.setVisibility(View.VISIBLE);
+        textoActividad.setText(R.string.texto_cargando_actividad_reciente);
+
 
         String url = ApiConfig.BASE_URL + "backend/api/obtener_actividades.php";
         new Thread(() -> {
@@ -209,13 +216,24 @@ public class InicioActivity extends AppCompatActivity {
                     listaActividades.clear();
                     listaActividades.addAll(nuevasActividades);
                     adapter.notifyDataSetChanged();
+
+                    if (nuevasActividades.isEmpty()) {
+                        recyclerActividad.setVisibility(View.GONE);
+                        textoActividad.setVisibility(View.VISIBLE);
+                        textoActividad.setText(R.string.texto_sin_actividad_reciente);
+                    } else {
+                        recyclerActividad.setVisibility(View.VISIBLE);
+                        textoActividad.setVisibility(View.GONE);
+                    }
                 });
 
             } catch (Exception e) {
                 runOnUiThread(() -> {
                     listaActividades.clear();
-                    listaActividades.add(new Actividad("Sin conexión con el servidor de base de datos", ""));
                     adapter.notifyDataSetChanged();
+                    recyclerActividad.setVisibility(View.GONE);
+                    textoActividad.setVisibility(View.VISIBLE);
+                    textoActividad.setText(R.string.error_carga_actividad_reciente);
                 });
             }
         }).start();

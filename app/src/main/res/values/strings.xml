@@ -37,6 +37,7 @@
     <string name="titulo_alertas">Alertas</string>
     <string name="texto_cargando_actividad_reciente">⏳ Cargando actividad reciente…</string>
     <string name="texto_sin_actividad_reciente">✅ No hay actividad reciente para mostrar.</string>
+    <string name="error_carga_actividad_reciente">❌ No se pudo cargar la actividad reciente.</string>
     <string name="texto_cargando_alertas">⏳ Cargando alertas…</string>
     <string name="texto_sin_alertas">✅ No hay alertas, todo está en orden.</string>
     <string name="error_procesar_alertas">❌ Error al procesar las alertas.</string>
