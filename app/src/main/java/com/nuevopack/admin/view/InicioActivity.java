@@ -202,5 +202,25 @@ public class InicioActivity extends AppCompatActivity {
         textoAlerta.setVisibility(View.VISIBLE);
         textoAlerta.setText("• Todos los sistemas funcionan correctamente.");
 
+        // Accesos rápidos
+        Button btnNuevoServicio = findViewById(R.id.btnAccesoNuevoServicio);
+        Button btnNuevoPrecio = findViewById(R.id.btnAccesoNuevoPrecio);
+        Button btnNuevoUsuario = findViewById(R.id.btnAccesoNuevoUsuario);
+
+        btnNuevoServicio.setOnClickListener(v -> {
+            Intent intent = new Intent(InicioActivity.this, CrearServicioActivity.class);
+            startActivity(intent);
+        });
+
+        btnNuevoPrecio.setOnClickListener(v -> {
+            Intent intent = new Intent(InicioActivity.this, CrearPrecioActivity.class);
+            startActivity(intent);
+        });
+
+        btnNuevoUsuario.setOnClickListener(v -> {
+            Intent intent = new Intent(InicioActivity.this, CrearUsuarioActivity.class);
+            startActivity(intent);
+        });
+
     }
 }
