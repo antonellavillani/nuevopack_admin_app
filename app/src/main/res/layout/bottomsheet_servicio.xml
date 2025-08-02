@@ -22,10 +22,22 @@
         <ImageView
             android:id="@+id/imagenCompleta"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:layout_marginBottom="12dp"
             android:src="@drawable/placeholder" />
+
+        <TextView
+            android:id="@+id/subtituloDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_descripcion"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/gris_oscuro"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_marginBottom="4dp" />
 
         <TextView
             android:id="@+id/descripcionServicio"

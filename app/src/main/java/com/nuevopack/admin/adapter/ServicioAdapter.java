@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.model.Servicio;
 import com.nuevopack.admin.util.ApiConfig;
@@ -51,7 +52,15 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHo
         Servicio servicio = servicios.get(position);
         holder.nombre.setText(servicio.getNombre());
 
-        holder.imagen.setImageResource(R.drawable.placeholder);
+        String urlImagen = ApiConfig.BASE_URL + "uploads/" + servicio.getFoto();
+        // Corregir posible doble slash para evitar errores
+        urlImagen = urlImagen.replaceAll("(?<!(http:|https:))/+", "/");
+
+        Glide.with(context)
+                .load(urlImagen)
+                .placeholder(R.drawable.placeholder) // imagen mientras carga
+                .error(R.drawable.imagen_error) // imagen si falla la carga
+                .into(holder.imagen);
 
         holder.itemView.setOnClickListener(v -> {
             ServicioBottomSheet dialogo = ServicioBottomSheet.newInstance(servicio);

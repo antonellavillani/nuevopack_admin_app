@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.util.ApiConfig;
 
@@ -60,23 +61,32 @@ public class EditarServicioActivity extends AppCompatActivity {
 
         // Cargar imagen actual (si hay)
         if (fotoUrl != null && !fotoUrl.isEmpty()) {
-            new Thread(() -> {
-                try {
-                    URL url = new URL(ApiConfig.BASE_URL + fotoUrl);
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setDoInput(true);
-                    conn.connect();
-                    InputStream is = conn.getInputStream();
-                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+            String urlImagen = ApiConfig.BASE_URL + "uploads/" + fotoUrl;
+            urlImagen = urlImagen.replaceAll("(?<!(http:|https:))/+", "/");
 
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-                    byte[] imageBytes = baos.toByteArray();
-                    imageBase64 = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+            Glide.with(this)
+                    .asBitmap()
+                    .load(urlImagen)
+                    .error(R.drawable.placeholder)
+                    .into(new com.bumptech.glide.request.target.BitmapImageViewTarget(imagePreview) {
+                        @Override
+                        protected void setResource(Bitmap resource) {
+                            if (resource != null) {
+                                super.setResource(resource);
+                                imagePreview.setImageBitmap(resource);
 
-                    runOnUiThread(() -> imagePreview.setImageBitmap(bitmap));
-                } catch (Exception ignored) {}
-            }).start();
+                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                resource.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+                                byte[] imageBytes = baos.toByteArray();
+                                imageBase64 = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+                            } else {
+                                // Imagen no cargó: mostrar placeholder y limpiar base64
+                                imagePreview.setImageResource(R.drawable.placeholder);
+                                imageBase64 = "";
+                            }
+                        }
+                    });
         }
 
         btnSeleccionarImagen.setOnClickListener(v -> seleccionarImagen());
