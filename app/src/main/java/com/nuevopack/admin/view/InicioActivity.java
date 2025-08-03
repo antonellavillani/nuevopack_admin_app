@@ -123,6 +123,27 @@ public class InicioActivity extends AppCompatActivity {
                     .show();
         });
 
+        // CARD Servicios – va a ServiciosActivity
+        View cardServicios = findViewById(R.id.includeCardServicios);
+        cardServicios.setOnClickListener(v -> {
+            Intent intent = new Intent(InicioActivity.this, ServiciosActivity.class);
+            startActivity(intent);
+        });
+
+        // CARD Precios – va a PreciosActivity
+        View cardPrecios = findViewById(R.id.includeCardPrecios);
+        cardPrecios.setOnClickListener(v -> {
+            Intent intent = new Intent(InicioActivity.this, PreciosActivity.class);
+            startActivity(intent);
+        });
+
+        // CARD Usuarios – va a UsuariosActivity
+        View cardUsuarios = findViewById(R.id.includeCardUsuarios);
+        cardUsuarios.setOnClickListener(v -> {
+            Intent intent = new Intent(InicioActivity.this, UsuariosActivity.class);
+            startActivity(intent);
+        });
+
         // Accesos rápidos
         Button btnNuevoServicio = findViewById(R.id.btnAccesoNuevoServicio);
         Button btnNuevoPrecio = findViewById(R.id.btnAccesoNuevoPrecio);

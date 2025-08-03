@@ -1,34 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:stateListAnimator="@animator/card_elevation_animator"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardElevation="4dp"
     card_view:cardCornerRadius="12dp"
     card_view:cardBackgroundColor="@color/gris_claro"
     android:layout_marginBottom="12dp"
-    android:padding="16dp">
+    android:padding="16dp"
+    >
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tituloCard"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="@color/verde_oscuro"
-            android:fontFamily="@font/poppins_regular" />
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/textoCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/gris_oscuro"
-            android:fontFamily="@font/poppins_regular" />
+            <TextView
+                android:id="@+id/tituloCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="@color/verde_oscuro"
+                android:fontFamily="@font/poppins_regular" />
+
+            <TextView
+                android:id="@+id/textoCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/gris_oscuro"
+                android:fontFamily="@font/poppins_regular" />
     </LinearLayout>
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_chevron_right" />
+    </LinearLayout>
+
 </androidx.cardview.widget.CardView>
