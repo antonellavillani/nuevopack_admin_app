@@ -30,6 +30,7 @@
 
     <!-- Pantalla Inicio -->
     <string name="titulo_panel_admin">Panel de Administrador NuevoPack</string>
+    <string name="titulo_mi_cuenta">Mi cuenta</string>
     <string name="titulo_bienvenido">Bienvenido, %1$s</string>
     <string name="titulo_accesos_rapidos">Accesos rápidos</string>
     <string name="atajo_nuevo_servicio">Nuevo servicio</string>

@@ -164,6 +164,52 @@ public class InicioActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        ImageView iconAccount = findViewById(R.id.iconAccount);
+        iconAccount.setOnClickListener(v -> mostrarPopupCuenta());
+    }
+
+    private void mostrarPopupCuenta() {
+        // Obtener datos del usuario desde SharedPreferences
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String nombre = prefs.getString("nombreUsuario", "Nombre Apellido");
+        String email = prefs.getString("emailUsuario", "usuario@email.com");
+
+        // Crear vista personalizada para el popup
+        View popupView = getLayoutInflater().inflate(R.layout.popup_account_menu, null);
+        TextView txtNombre = popupView.findViewById(R.id.tvNombre);
+        TextView txtEmail = popupView.findViewById(R.id.tvCorreo);
+        Button btnCerrarSesion = popupView.findViewById(R.id.btnCerrarSesion);
+
+        txtNombre.setText(nombre);
+        txtEmail.setText(email);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(popupView)
+                .create();
+
+        btnCerrarSesion.setOnClickListener(view -> {
+            dialog.dismiss(); // Cierra el popup
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Cerrar sesión")
+                    .setMessage("¿Seguro que desea cerrar su sesión?")
+                    .setPositiveButton("Sí", (d, which) -> {
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.remove("mantenerSesion");
+                        editor.apply();
+
+                        Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        });
+
+        dialog.show();
     }
 
     @Override
