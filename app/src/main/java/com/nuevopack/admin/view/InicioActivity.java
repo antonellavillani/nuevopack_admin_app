@@ -177,21 +177,66 @@ public class InicioActivity extends AppCompatActivity {
 
         // Servicios
         View cardServicios = findViewById(R.id.includeCardServicios);
-        ResumenCard serviciosCard = dashboard.obtenerResumenServicios();
-        ((TextView) cardServicios.findViewById(R.id.tituloCard)).setText(serviciosCard.getTitulo());
-        ((TextView) cardServicios.findViewById(R.id.textoCard)).setText(serviciosCard.getDescripcion());
+        String urlServicios = ApiConfig.BASE_URL + "backend/api/get_total_servicios.php";
+        dashboard.obtenerResumenServicios(urlServicios, new DashboardController.ResumenCallback() {
+            @Override
+            public void onSuccess(ResumenCard serviciosCard) {
+                runOnUiThread(() -> {
+                    ((TextView) cardServicios.findViewById(R.id.tituloCard)).setText(serviciosCard.getTitulo());
+                    ((TextView) cardServicios.findViewById(R.id.textoCard)).setText(serviciosCard.getDescripcion());
+                });
+            }
+
+            @Override
+            public void onError(String error) {
+                runOnUiThread(() -> {
+                    ((TextView) cardServicios.findViewById(R.id.tituloCard)).setText(R.string.btn_sidebar_servicios);
+                    ((TextView) cardServicios.findViewById(R.id.textoCard)).setText(R.string.error_conexion);
+                });
+            }
+        });
 
         // Precios
         View cardPrecios = findViewById(R.id.includeCardPrecios);
-        ResumenCard preciosCard = dashboard.obtenerResumenPrecios();
-        ((TextView) cardPrecios.findViewById(R.id.tituloCard)).setText(preciosCard.getTitulo());
-        ((TextView) cardPrecios.findViewById(R.id.textoCard)).setText(preciosCard.getDescripcion());
+        String urlPrecios = ApiConfig.BASE_URL + "backend/api/get_total_precios.php";
+        dashboard.obtenerResumenPrecios(urlPrecios, new DashboardController.ResumenCallback() {
+            @Override
+            public void onSuccess(ResumenCard preciosCard) {
+                runOnUiThread(() -> {
+                    ((TextView) cardPrecios.findViewById(R.id.tituloCard)).setText(preciosCard.getTitulo());
+                    ((TextView) cardPrecios.findViewById(R.id.textoCard)).setText(preciosCard.getDescripcion());
+                });
+            }
+
+            @Override
+            public void onError(String error) {
+                runOnUiThread(() -> {
+                    ((TextView) cardPrecios.findViewById(R.id.tituloCard)).setText(R.string.btn_sidebar_precios);
+                    ((TextView) cardPrecios.findViewById(R.id.textoCard)).setText(R.string.error_conexion);
+                });
+            }
+        });
 
         // Usuarios
         View cardUsuarios = findViewById(R.id.includeCardUsuarios);
-        ResumenCard usuariosCard = dashboard.obtenerResumenUsuarios();
-        ((TextView) cardUsuarios.findViewById(R.id.tituloCard)).setText(usuariosCard.getTitulo());
-        ((TextView) cardUsuarios.findViewById(R.id.textoCard)).setText(usuariosCard.getDescripcion());
+        String urlUsuarios = ApiConfig.BASE_URL + "backend/api/get_total_usuarios.php";
+        dashboard.obtenerResumenUsuarios(urlUsuarios, new DashboardController.ResumenCallback() {
+            @Override
+            public void onSuccess(ResumenCard usuariosCard) {
+                runOnUiThread(() -> {
+                    ((TextView) cardUsuarios.findViewById(R.id.tituloCard)).setText(usuariosCard.getTitulo());
+                    ((TextView) cardUsuarios.findViewById(R.id.textoCard)).setText(usuariosCard.getDescripcion());
+                });
+            }
+
+            @Override
+            public void onError(String error) {
+                runOnUiThread(() -> {
+                    ((TextView) cardUsuarios.findViewById(R.id.tituloCard)).setText(R.string.btn_sidebar_usuarios);
+                    ((TextView) cardUsuarios.findViewById(R.id.textoCard)).setText(R.string.error_conexion);
+                });
+            }
+        });
 
         // Actividad reciente
         View cardActividad = findViewById(R.id.includeCardActividad);
@@ -299,5 +344,4 @@ public class InicioActivity extends AppCompatActivity {
 
         queue.add(request);
     }
-
 }

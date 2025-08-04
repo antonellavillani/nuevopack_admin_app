@@ -3,6 +3,7 @@
     <string name="boton_editar">Editar</string>
     <string name="boton_eliminar">Eliminar</string>
     <string name="boton_guardar">Guardar</string>
+    <string name="error_conexion">Error de conexión</string>
 
     <!-- contentDescriptions para elementos visuales -->
     <string name="menu_lateral">Menú lateral</string>
