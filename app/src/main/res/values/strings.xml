@@ -16,6 +16,7 @@
     <string name="login_input_email">Correo electrónico</string>
     <string name="login_input_contrasena">Contraseña</string>
     <string name="login_boton_iniciar_sesion">Iniciar sesión</string>
+    <string name="google_login_button">Iniciar sesión con Google</string>
     <string name="mostrar_contraseña">Mostrar/ocultar contraseña</string>
     <string name="checkbox_mantener_sesion">Mantener la sesión iniciada</string>
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "94479288645",
+    "project_id": "nuevopack-app",
+    "storage_bucket": "nuevopack-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94479288645:android:a3e1616def3fa70ce6d62c",
+        "android_client_info": {
+          "package_name": "com.nuevopack.admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3b33ODpczOkjQvKR-2j34IA3lH2JrFO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
