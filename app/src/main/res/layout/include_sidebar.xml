@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sidebarLayout"
+    android:layout_width="260dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/verde_oscuro"
+    android:gravity="center"
+    android:layout_gravity="start">
+
+    <ImageView
+        android:id="@+id/iconClose"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_close"
+        android:layout_gravity="start"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <Button
+        android:id="@+id/btnInicio"
+        android:text="@string/btn_sidebar_inicio"
+        style="@style/SidebarButton" />
+
+    <Button
+        android:id="@+id/btnServicios"
+        android:text="@string/btn_sidebar_servicios"
+        style="@style/SidebarButton" />
+
+    <Button
+        android:id="@+id/btnPrecios"
+        android:text="@string/btn_sidebar_precios"
+        style="@style/SidebarButton" />
+
+    <Button
+        android:id="@+id/btnUsuarios"
+        android:text="@string/btn_sidebar_usuarios"
+        style="@style/SidebarButton" />
+
+    <Button
+        android:id="@+id/btnCerrarSesion"
+        android:text="@string/btn_sidebar_cerrar_sesion"
+        style="@style/SidebarButton" />
+</LinearLayout>

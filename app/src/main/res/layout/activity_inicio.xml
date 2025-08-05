@@ -13,43 +13,9 @@
         android:background="@color/blanco">
 
         <!-- Navbar -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:background="@color/verde_claro"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
-
-            <!-- Sidebar -->
-            <ImageView
-                android:id="@+id/iconMenu"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_menu"
-                android:contentDescription="@string/menu_lateral"
-                android:clickable="true"
-                android:focusable="true" />
-
-            <!-- Logo centrado -->
-            <ImageView
-                android:id="@+id/logoNavbar"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/logo_nuevopack_navbar"
-                android:contentDescription="@string/logo_nuevoPack" />
-
-            <!-- Ícono de cuenta -->
-            <ImageView
-                android:id="@+id/iconAccount"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_account"
-                android:contentDescription="@string/logo_cuenta" />
-        </RelativeLayout>
+        <include
+            android:id="@+id/includeNavbar"
+            layout="@layout/include_navbar" />
 
         <!-- Contenido -->
         <ScrollView
@@ -197,51 +163,11 @@
         </ScrollView>
     </LinearLayout>
 
-    <!-- Sidebar -->
-    <LinearLayout
-        android:id="@+id/sidebarLayout"
-        android:layout_width="260dp"
+    <!-- SIDEBAR -->
+    <include
+        android:id="@+id/includeSidebar"
+        layout="@layout/include_sidebar"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/verde_oscuro"
-        android:gravity="center"
-        android:layout_gravity="start"
-        android:visibility="visible">
-
-        <ImageView
-            android:id="@+id/iconClose"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_close"
-            android:layout_gravity="start"
-            android:layout_margin="16dp"
-            app:tint="@color/blanco"
-            android:clickable="true"
-            android:focusable="true" />
-
-        <Button
-            android:id="@+id/btnInicio"
-            android:text="@string/btn_sidebar_inicio"
-            style="@style/SidebarButton" />
-
-        <Button
-            android:id="@+id/btnServicios"
-            android:text="@string/btn_sidebar_servicios"
-            style="@style/SidebarButton" />
-
-        <Button
-            android:id="@+id/btnPrecios"
-            android:text="@string/btn_sidebar_precios"
-            style="@style/SidebarButton" />
-
-        <Button
-            android:id="@+id/btnUsuarios"
-            android:text="@string/btn_sidebar_usuarios"
-            style="@style/SidebarButton" />
-
-        <Button
-            android:id="@+id/btnCerrarSesion"
-            android:text="@string/btn_sidebar_cerrar_sesion"
-            style="@style/SidebarButton" />
-    </LinearLayout>
+        android:layout_gravity="start" />
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:background="@color/verde_claro"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
+
+    <!-- Botón Menú (abre el Drawer) -->
+    <ImageView
+        android:id="@+id/iconMenu"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_menu"
+        android:contentDescription="@string/menu_lateral"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <!-- Logo centrado -->
+    <ImageView
+        android:id="@+id/logoNavbar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/logo_nuevopack_navbar"
+        android:contentDescription="@string/logo_nuevoPack" />
+
+    <!-- Ícono de cuenta -->
+    <ImageView
+        android:id="@+id/iconAccount"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_account"
+        android:contentDescription="@string/logo_cuenta" />
+</RelativeLayout>
