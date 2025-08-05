@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Contenedor principal con navbar arriba y contenido abajo -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Navbar fijo arriba -->
+        <include
+            android:id="@+id/includeNavbar"
+            layout="@layout/include_navbar" />
+
+        <!-- Contenedor para inflar contenido específico -->
+        <FrameLayout
+            android:id="@+id/contentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <!-- Sidebar -->
+    <include
+        android:id="@+id/includeSidebar"
+        layout="@layout/include_sidebar" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

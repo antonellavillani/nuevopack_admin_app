@@ -12,11 +12,6 @@
         android:layout_height="match_parent"
         android:background="@color/blanco">
 
-        <!-- Navbar -->
-        <include
-            android:id="@+id/includeNavbar"
-            layout="@layout/include_navbar" />
-
         <!-- Contenido -->
         <ScrollView
             android:layout_width="match_parent"
@@ -162,12 +157,4 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-
-    <!-- SIDEBAR -->
-    <include
-        android:id="@+id/includeSidebar"
-        layout="@layout/include_sidebar"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start" />
 </androidx.drawerlayout.widget.DrawerLayout>
