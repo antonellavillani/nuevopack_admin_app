@@ -4,19 +4,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.adapter.PrecioAdapter;
 import com.nuevopack.admin.model.Precio;
 import com.nuevopack.admin.util.ApiConfig;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -24,7 +19,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import android.content.Intent;
 
-public class PreciosActivity extends AppCompatActivity {
+public class PreciosActivity extends BaseActivity {
 
     private final ArrayList<Precio> listaPrecios = new ArrayList<>();
     private PrecioAdapter adapter;
@@ -34,7 +29,7 @@ public class PreciosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_precios);
+        setContenidoLayout(R.layout.activity_precios);
 
         Button btnNuevoPrecio = findViewById(R.id.btnNuevoPrecio);
         btnNuevoPrecio.setOnClickListener(v -> {

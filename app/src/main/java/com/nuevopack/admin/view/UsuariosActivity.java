@@ -6,26 +6,21 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.adapter.UsuarioAdapter;
 import com.nuevopack.admin.model.Usuario;
 import com.nuevopack.admin.util.ApiConfig;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class UsuariosActivity extends AppCompatActivity {
+public class UsuariosActivity extends BaseActivity {
 
     private final ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     private UsuarioAdapter adapter;
@@ -47,7 +42,7 @@ public class UsuariosActivity extends AppCompatActivity {
             }
         }
 
-        setContentView(R.layout.activity_usuarios);
+        setContenidoLayout(R.layout.activity_usuarios);
 
         RecyclerView recycler = findViewById(R.id.recyclerUsuarios);
         recycler.setLayoutManager(new LinearLayoutManager(this));

@@ -4,26 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import android.widget.Button;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.adapter.ServicioAdapter;
 import com.nuevopack.admin.model.Servicio;
 import com.nuevopack.admin.util.ApiConfig;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class ServiciosActivity extends AppCompatActivity {
+public class ServiciosActivity extends BaseActivity {
 
     private ArrayList<Servicio> listaServicios = new ArrayList<>();
     private ServicioAdapter adapter;
@@ -33,7 +28,7 @@ public class ServiciosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_servicios);
+        setContenidoLayout(R.layout.activity_servicios);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerServicios);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
