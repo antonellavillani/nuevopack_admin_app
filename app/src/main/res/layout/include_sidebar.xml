@@ -23,7 +23,7 @@
         android:layout_marginEnd="10dp"
         android:contentDescription="@string/cerrar_sidebar" />
 
-    <!-- Espacio pequeño para separar la cruz del título -->
+    <!-- Espacio para separar la cruz del título -->
     <View
         android:layout_width="match_parent"
         android:layout_height="130dp" />
@@ -33,7 +33,7 @@
         android:id="@+id/sidebarTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Menú"
+        android:text="@string/titulo_menu_sidebar"
         android:textColor="@android:color/white"
         android:textSize="22sp"
         android:textStyle="bold"

@@ -8,7 +8,8 @@
     <!-- contentDescriptions para elementos visuales -->
     <string name="menu_lateral">Menú lateral</string>
     <string name="logo_nuevoPack">Logo NuevoPack</string>
-    <string name="logo_cuenta">Logo Mi Cuenta</string>
+    <string name="logo_cuenta">Mi Cuenta</string>
+    <string name="cerrar_sidebar">Cerrar Sidebar</string>
 
     <!-- Pantalla Login -->
     <string name="app_name">NuevoPack Admin</string>
@@ -22,6 +23,7 @@
     <string name="checkbox_mantener_sesion">Mantener la sesión iniciada</string>
 
     <!-- SideBar -->
+    <string name="titulo_menu_sidebar">Menú</string>
     <string name="btn_sidebar_inicio">Inicio</string>
     <string name="btn_sidebar_servicios">Servicios</string>
     <string name="btn_sidebar_precios">Precios</string>
