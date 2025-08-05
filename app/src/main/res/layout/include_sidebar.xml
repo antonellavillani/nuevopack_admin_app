@@ -4,41 +4,71 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/verde_oscuro"
-    android:gravity="center"
-    android:layout_gravity="start">
+    android:gravity="start"
+    android:layout_gravity="start"
+    android:paddingTop="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
 
+    <!-- Contenedor para la cruz de cerrar -->
     <ImageView
         android:id="@+id/iconClose"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:src="@drawable/ic_close"
         android:layout_gravity="start"
-        android:layout_margin="16dp"
         android:clickable="true"
-        android:focusable="true" />
+        android:focusable="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/cerrar_sidebar" />
 
+    <!-- Espacio pequeño para separar la cruz del título -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="130dp" />
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/sidebarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Menú"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Botones del sidebar -->
     <Button
         android:id="@+id/btnInicio"
         android:text="@string/btn_sidebar_inicio"
+        android:layout_gravity="center"
         style="@style/SidebarButton" />
 
     <Button
         android:id="@+id/btnServicios"
         android:text="@string/btn_sidebar_servicios"
+        android:layout_gravity="center"
         style="@style/SidebarButton" />
 
     <Button
         android:id="@+id/btnPrecios"
         android:text="@string/btn_sidebar_precios"
+        android:layout_gravity="center"
         style="@style/SidebarButton" />
 
     <Button
         android:id="@+id/btnUsuarios"
         android:text="@string/btn_sidebar_usuarios"
+        android:layout_gravity="center"
         style="@style/SidebarButton" />
 
     <Button
         android:id="@+id/btnCerrarSesion"
         android:text="@string/btn_sidebar_cerrar_sesion"
+        android:layout_gravity="center"
         style="@style/SidebarButton" />
 </LinearLayout>
