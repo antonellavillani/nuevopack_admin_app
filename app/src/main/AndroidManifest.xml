@@ -51,6 +51,8 @@
         </activity>
         <activity android:name=".view.CrearUsuarioActivity" />
         <activity android:name=".view.EditarUsuarioActivity" />
+        <!-- Soporte -->
+        <activity android:name=".view.SoporteActivity" />
     </application>
 
 </manifest>

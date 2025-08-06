@@ -3,6 +3,7 @@
     <string name="boton_editar">Editar</string>
     <string name="boton_eliminar">Eliminar</string>
     <string name="boton_guardar">Guardar</string>
+    <string name="boton_enviar">Enviar</string>
     <string name="error_conexion">Error de conexión</string>
 
     <!-- contentDescriptions para elementos visuales -->
@@ -87,8 +88,15 @@
     <string name="requisito_contrasena3">❌ Al menos una letra minúscula</string>
     <string name="requisito_contrasena4">❌ Al menos un número</string>
     <string name="requisito_contrasena5">❌ Al menos un carácter especial</string>
-
     <string name="checkbox_aprobado">Aprobado</string>
     <string name="checkbox_aprobado_texto">Si esta opción está marcada, el usuario podrá ingresar al sistema. Si no, quedará deshabilitado.</string>
     <string name="boton_restablecer_contrasena">Restablecer contraseña</string>
+
+    <!-- Pantalla Soporte -->
+    <string name="titulo_soporte">Soporte</string>
+    <string name="texto_soporte">Si tenés dudas, sugerencias o reportes, completá el siguiente formulario y nos comunicaremos pronto con vos.</string>
+    <string name="soporte_form_asunto">Asunto</string>
+    <string name="soporte_form_mensaje">Mensaje</string>
+    <string name="soporte_form_imagen">Adjuntar imagen (opcional)</string>
+    <string name="soporte_form_cambiar_imagen">Cambiar imagen</string>
 </resources>

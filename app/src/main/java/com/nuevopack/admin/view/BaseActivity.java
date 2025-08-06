@@ -54,6 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         Button btnServicios  = findViewById(R.id.btnServicios);
         Button btnPrecios    = findViewById(R.id.btnPrecios);
         Button btnUsuarios   = findViewById(R.id.btnUsuarios);
+        Button btnSoporte   = findViewById(R.id.btnSoporte);
         Button btnCerrar     = findViewById(R.id.btnCerrarSesion);
 
         btnInicio.setOnClickListener(v -> {
@@ -70,6 +71,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         });
         btnUsuarios.setOnClickListener(v -> {
             startActivity(new Intent(this, UsuariosActivity.class));
+            drawerLayout.closeDrawer(GravityCompat.START);
+        });
+        btnSoporte.setOnClickListener(v -> {
+            startActivity(new Intent(this, SoporteActivity.class));
             drawerLayout.closeDrawer(GravityCompat.START);
         });
         btnCerrar.setOnClickListener(v -> confirmarCerrarSesion());
