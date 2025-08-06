@@ -25,8 +25,8 @@
 
     <!-- Espacio para separar la cruz del título -->
     <View
-        android:layout_width="match_parent"
-        android:layout_height="130dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="110dp" />
 
     <!-- Título -->
     <TextView
@@ -63,6 +63,12 @@
     <Button
         android:id="@+id/btnUsuarios"
         android:text="@string/btn_sidebar_usuarios"
+        android:layout_gravity="center"
+        style="@style/SidebarButton" />
+
+    <Button
+        android:id="@+id/btnSoporte"
+        android:text="@string/btn_sidebar_soporte"
         android:layout_gravity="center"
         style="@style/SidebarButton" />
 

@@ -24,11 +24,12 @@
 
     <!-- SideBar -->
     <string name="titulo_menu_sidebar">Menú</string>
-    <string name="btn_sidebar_inicio">Inicio</string>
-    <string name="btn_sidebar_servicios">Servicios</string>
-    <string name="btn_sidebar_precios">Precios</string>
-    <string name="btn_sidebar_usuarios">Usuarios</string>
-    <string name="btn_sidebar_cerrar_sesion">Cerrar sesión</string>
+    <string name="btn_sidebar_inicio">🏠 Inicio</string>
+    <string name="btn_sidebar_servicios">🛠️ Servicios</string>
+    <string name="btn_sidebar_precios">💰 Precios</string>
+    <string name="btn_sidebar_usuarios">👥 Usuarios</string>
+    <string name="btn_sidebar_soporte">💬 Soporte</string>
+    <string name="btn_sidebar_cerrar_sesion">🚪 Cerrar sesión</string>
 
     <!-- Pantalla Inicio -->
     <string name="titulo_panel_admin">Panel de Administrador NuevoPack</string>
