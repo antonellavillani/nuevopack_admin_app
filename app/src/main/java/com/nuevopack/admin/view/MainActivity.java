@@ -28,6 +28,14 @@ import android.preference.PreferenceManager;
 import android.widget.CheckBox;
 
 import com.nuevopack.admin.R;
+import com.nuevopack.admin.util.ApiConfig;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 100;
@@ -125,25 +133,63 @@ public class MainActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-
                 String nombre = account.getDisplayName();
                 String email = account.getEmail();
 
-                // Próximo: verificar si el email está autorizado en la base de datos
-                // Por ahora: permitir el acceso directamente
+                // 1. Llamada al backend
+                String url = ApiConfig.BASE_URL + "backend/api/login_google.php?email=" + email + "&nombre=" + nombre;
 
-                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-                editor.putBoolean("mantenerSesion", true);
-                editor.putString("emailGuardado", email);
-                editor.putString("nombreUsuario", nombre);
-                editor.apply();
+                new Thread(() -> {
+                    try {
+                        java.net.URL urlObj = new java.net.URL(url);
+                        java.net.HttpURLConnection conn = (java.net.HttpURLConnection) urlObj.openConnection();
+                        conn.setRequestMethod("GET");
 
-                startActivity(new Intent(this, InicioActivity.class));
-                finish();
+                        java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(conn.getInputStream()));
+                        StringBuilder json = new StringBuilder();
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            json.append(line);
+                        }
+
+                        org.json.JSONObject response = new org.json.JSONObject(json.toString());
+                        String status = response.getString("status");
+
+                        runOnUiThread(() -> {
+                            if (status.equals("autorizado")) {
+                                // Guardar sesión
+                                SharedPreferences.Editor editor = PreferenceManager
+                                        .getDefaultSharedPreferences(this)
+                                        .edit();
+                                editor.putBoolean("mantenerSesion", true);
+                                editor.putString("emailGuardado", email);
+                                editor.putString("nombreUsuario", nombre);
+                                editor.apply();
+
+                                startActivity(new Intent(this, InicioActivity.class));
+                                finish();
+                            }
+                            else if (status.equals("pendiente")) {
+                                Toast.makeText(this, "Tu cuenta está pendiente de aprobación. Por favor, comunicarse con NuevoPack.", Toast.LENGTH_LONG).show();
+                            }
+                            else if (status.equals("nuevo")) {
+                                Toast.makeText(this, "Tu cuenta fue registrada pero necesita ser aprobada. Por favor, comunicarse con NuevoPack.", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                Toast.makeText(this, "Ocurrió un error.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    } catch (Exception e) {
+                        runOnUiThread(() -> Toast.makeText(this,
+                                "Error al verificar con el servidor", Toast.LENGTH_LONG).show());
+                    }
+                }).start();
 
             } catch (ApiException e) {
                 Log.e("GoogleLogin", "Error al iniciar sesión con Google", e);
-                Toast.makeText(this, "Error: " + e.getStatusCode(), Toast.LENGTH_LONG).show();            }
+                Toast.makeText(this, "Error: " + e.getStatusCode(), Toast.LENGTH_LONG).show();
+            }
         }
     }
 }
