@@ -1,5 +1,6 @@
 package com.nuevopack.admin.view;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
@@ -78,9 +79,17 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(new Intent(MainActivity.this, InicioActivity.class));
                             finish();
                         } else if (status.equals("pendiente")) {
-                            Toast.makeText(this, "Tu cuenta está pendiente de aprobación. Por favor, comunicarse con NuevoPack.", Toast.LENGTH_LONG).show();
+                            new AlertDialog.Builder(this)
+                                    .setTitle("Aprobación pendiente")
+                                    .setMessage("Tu cuenta está pendiente de aprobación. Por favor, comunicarse con NuevoPack.")
+                                    .setPositiveButton("Aceptar", null)
+                                    .show();
                         } else if (status.equals("nuevo")) {
-                            Toast.makeText(this, "Tu cuenta fue registrada pero necesita ser aprobada. Por favor, comunicarse con NuevoPack.", Toast.LENGTH_LONG).show();
+                            new AlertDialog.Builder(this)
+                                    .setTitle("Cuenta registrada con éxito")
+                                    .setMessage("Tu cuenta fue registrada pero necesita ser aprobada. Por favor, comunicarse con NuevoPack.")
+                                    .setPositiveButton("Aceptar", null)
+                                    .show();
                         } else {
                             Toast.makeText(this, "Estado de cuenta desconocido.", Toast.LENGTH_SHORT).show();
                         }
@@ -199,12 +208,18 @@ public class MainActivity extends AppCompatActivity {
                                 finish();
                             }
                             else if (status.equals("pendiente")) {
-                                Toast.makeText(this, "Tu cuenta está pendiente de aprobación. Por favor, comunicarse con NuevoPack.", Toast.LENGTH_LONG).show();
-                            }
-                            else if (status.equals("nuevo")) {
-                                Toast.makeText(this, "Tu cuenta fue registrada pero necesita ser aprobada. Por favor, comunicarse con NuevoPack.", Toast.LENGTH_LONG).show();
-                            }
-                            else {
+                                new AlertDialog.Builder(this)
+                                        .setTitle("Aprobación pendiente")
+                                        .setMessage("Tu cuenta está pendiente de aprobación. Por favor, comunicarse con NuevoPack.")
+                                        .setPositiveButton("Aceptar", null)
+                                        .show();
+                            }   else if (status.equals("nuevo")) {
+                                new AlertDialog.Builder(this)
+                                        .setTitle("Cuenta registrada con éxito")
+                                        .setMessage("Tu cuenta fue registrada pero necesita ser aprobada. Por favor, comunicarse con NuevoPack.")
+                                        .setPositiveButton("Aceptar", null)
+                                        .show();
+                            } else {
                                 Toast.makeText(this, "Ocurrió un error.", Toast.LENGTH_SHORT).show();
                             }
                         });
