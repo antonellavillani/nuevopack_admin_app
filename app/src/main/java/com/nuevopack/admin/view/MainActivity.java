@@ -3,39 +3,31 @@ package com.nuevopack.admin.view;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.common.api.ApiException;
-
 import android.util.Log;
 import android.widget.Toast;
 import com.nuevopack.admin.controller.LoginController;
 import com.nuevopack.admin.model.Usuario;
-
 import android.text.InputType;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.content.Intent;
-
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.widget.CheckBox;
-
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.util.ApiConfig;
-
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 100;
@@ -58,10 +50,47 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean sesionActiva = prefs.getBoolean("mantenerSesion", false);
         String nombreUsuario = prefs.getString("nombreUsuario", null);
+        String emailGuardado = prefs.getString("emailGuardado", null);
 
-        if (sesionActiva && nombreUsuario != null && !nombreUsuario.isEmpty()) {
-            startActivity(new Intent(MainActivity.this, InicioActivity.class));
-            finish(); // Cerrar MainActivity
+        if (sesionActiva && nombreUsuario != null && !nombreUsuario.isEmpty() && emailGuardado != null && !emailGuardado.isEmpty()) {
+            // Verificación con el backend si el usuario está aprobado antes de continuar
+            String url = ApiConfig.BASE_URL + "backend/api/login_google.php?email=" + emailGuardado + "&nombre=" + nombreUsuario;
+
+            new Thread(() -> {
+                try {
+                    URL urlObj = new URL(url);
+                    HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
+                    conn.setRequestMethod("GET");
+
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    StringBuilder json = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        json.append(line);
+                    }
+
+                    JSONObject response = new JSONObject(json.toString());
+                    String status = response.getString("status");
+
+                    runOnUiThread(() -> {
+                        if (status.equals("autorizado")) {
+                            // Usuario aprobado, continuar a InicioActivity
+                            startActivity(new Intent(MainActivity.this, InicioActivity.class));
+                            finish();
+                        } else if (status.equals("pendiente")) {
+                            Toast.makeText(this, "Tu cuenta está pendiente de aprobación. Por favor, comunicarse con NuevoPack.", Toast.LENGTH_LONG).show();
+                        } else if (status.equals("nuevo")) {
+                            Toast.makeText(this, "Tu cuenta fue registrada pero necesita ser aprobada. Por favor, comunicarse con NuevoPack.", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(this, "Estado de cuenta desconocido.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } catch (Exception e) {
+                    runOnUiThread(() -> Toast.makeText(this,
+                            "Error al verificar sesión con el servidor", Toast.LENGTH_LONG).show());
+                }
+            }).start();
         }
 
         // Mostrar/ocultar contraseña
