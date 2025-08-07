@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -175,8 +178,12 @@ public class MainActivity extends AppCompatActivity {
                 String apellido = account.getFamilyName();
                 String email = account.getEmail();
 
+                String nombreEncoded = URLEncoder.encode(nombre, "UTF-8");
+                String apellidoEncoded = URLEncoder.encode(apellido, "UTF-8");
+                String emailEncoded = URLEncoder.encode(email, "UTF-8");
+
                 // 1. Llamada al backend
-                String url = ApiConfig.BASE_URL + "backend/api/login_google.php?email=" + email + "&nombre=" + nombre + "&apellido=" + apellido;
+                String url = ApiConfig.BASE_URL + "backend/api/login_google.php?email=" + emailEncoded + "&nombre=" + nombreEncoded + "&apellido=" + apellidoEncoded;
 
                 new Thread(() -> {
                     try {
@@ -234,6 +241,8 @@ public class MainActivity extends AppCompatActivity {
             } catch (ApiException e) {
                 Log.e("GoogleLogin", "Error al iniciar sesión con Google", e);
                 Toast.makeText(this, "Error: " + e.getStatusCode(), Toast.LENGTH_LONG).show();
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
             }
         }
     }
