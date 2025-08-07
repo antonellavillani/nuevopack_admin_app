@@ -171,11 +171,12 @@ public class MainActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                String nombre = account.getDisplayName();
+                String nombre = account.getGivenName();
+                String apellido = account.getFamilyName();
                 String email = account.getEmail();
 
                 // 1. Llamada al backend
-                String url = ApiConfig.BASE_URL + "backend/api/login_google.php?email=" + email + "&nombre=" + nombre;
+                String url = ApiConfig.BASE_URL + "backend/api/login_google.php?email=" + email + "&nombre=" + nombre + "&apellido=" + apellido;
 
                 new Thread(() -> {
                     try {
