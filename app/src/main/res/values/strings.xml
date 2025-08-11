@@ -4,6 +4,7 @@
     <string name="boton_eliminar">Eliminar</string>
     <string name="boton_guardar">Guardar</string>
     <string name="boton_enviar">Enviar</string>
+    <string name="boton_cerrar">Cerrar</string>
     <string name="error_conexion">Error de conexión</string>
 
     <!-- contentDescriptions para elementos visuales -->
