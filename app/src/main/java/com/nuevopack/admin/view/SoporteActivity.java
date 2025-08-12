@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -19,15 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.adapter.ImagesAdapter;
-import com.nuevopack.admin.util.ApiConfig;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.nuevopack.admin.controller.SoporteController;
+import com.nuevopack.admin.service.SoporteService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,8 +63,31 @@ public class SoporteActivity extends BaseActivity {
                 Toast.makeText(this, "Completá asunto y mensaje.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            enviarSoporte(asunto, mensaje, imagenesUri);
+            ProgressDialog progress = new ProgressDialog(this);
+            progress.setMessage("Enviando...");
+            progress.setCancelable(false);
+            progress.show();
+
+            SoporteController controller = new SoporteController(this);
+            controller.enviarSoporte(asunto, mensaje, imagenesUri, new SoporteService.Callback() {
+                @Override
+                public void onSuccess() {
+                    runOnUiThread(() -> {
+                        progress.dismiss();
+                        Toast.makeText(SoporteActivity.this, "Consulta enviada exitosamente.", Toast.LENGTH_LONG).show();
+                        finish();
         });
+    }
+
+            @Override
+            public void onError(String errorMsg) {
+                runOnUiThread(() -> {
+                    progress.dismiss();
+                    Toast.makeText(SoporteActivity.this, errorMsg, Toast.LENGTH_LONG).show();
+                });
+            }
+        });
+    });
     }
 
     @Override
@@ -125,71 +139,5 @@ public class SoporteActivity extends BaseActivity {
         }
 
         dialog.show();
-    }
-
-    private void enviarSoporte(String asunto, String mensaje, List<Uri> imagenes) {
-        ProgressDialog dialog = new ProgressDialog(this);
-        dialog.setMessage("Enviando...");
-        dialog.setCancelable(false);
-        dialog.show();
-
-        new Thread(() -> {
-            try {
-                URL url = new URL(ApiConfig.BASE_URL+"backend/api/enviar_soporte.php");
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-                conn.setRequestProperty("Content-Type", "application/json");
-
-                JSONObject json = new JSONObject();
-                json.put("asunto", asunto);
-                json.put("mensaje", mensaje);
-
-                JSONArray imgsBase64 = new JSONArray();
-                for (Uri uri : imagenes) {
-                    InputStream is = getContentResolver().openInputStream(uri);
-                    byte[] bytes = new byte[is.available()];
-                    is.read(bytes);
-                    is.close();
-                    String base64 = Base64.encodeToString(bytes, Base64.DEFAULT);
-                    imgsBase64.put(base64);
-                }
-                json.put("imagenes", imgsBase64);
-
-                DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
-                wr.writeBytes(json.toString());
-                wr.flush();
-                wr.close();
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder result = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) result.append(line);
-                Log.d("RESPUESTA_SOPORTE", result.toString());
-
-                JSONObject res = new JSONObject(result.toString());
-                boolean ok = res.getBoolean("ok");
-
-                runOnUiThread(() -> {
-                    dialog.dismiss();
-                    if(ok){
-                        Toast.makeText(this, "Consulta enviada exitosamente.", Toast.LENGTH_LONG).show();
-                        finish();
-                    } else {
-                        String msg = res.optString("msg", "Error al enviar.");
-                        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            } catch (Exception e) {
-                runOnUiThread(() -> {
-                    dialog.dismiss();
-                    Toast.makeText(this, "Error al enviar consulta.", Toast.LENGTH_LONG).show();
-                    Log.e("ErrorEnviarSoporte", e.toString());
-                });
-            }
-        }).start();
     }
 }

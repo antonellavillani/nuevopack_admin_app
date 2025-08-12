@@ -23,6 +23,7 @@
     <string name="google_login_button">Iniciar sesión con Google</string>
     <string name="mostrar_contraseña">Mostrar/ocultar contraseña</string>
     <string name="checkbox_mantener_sesion">Mantener la sesión iniciada</string>
+    <string name="separador_botones_login">o</string>
 
     <!-- SideBar -->
     <string name="titulo_menu_sidebar">Menú</string>
