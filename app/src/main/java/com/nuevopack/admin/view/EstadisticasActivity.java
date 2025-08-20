@@ -39,7 +39,13 @@ public class EstadisticasActivity extends BaseActivity {
         listaEstadisticas = new ArrayList<>();
         estadisticasAdapter = new EstadisticasAdapter(listaEstadisticas);
         recyclerEstadisticas.setAdapter(estadisticasAdapter);
+        // Placeholders nulos para que se vean los shimmer
+        for (int i = 0; i < 5; i++) {
+            listaEstadisticas.add(null);
+        }
+        estadisticasAdapter.notifyDataSetChanged();
 
+        // Después cargar los datos reales
         cargarEstadisticas();
     }
 

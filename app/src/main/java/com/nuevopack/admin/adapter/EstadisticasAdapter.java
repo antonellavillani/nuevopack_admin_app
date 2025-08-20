@@ -4,7 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import com.facebook.shimmer.ShimmerFrameLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,8 +31,21 @@ public class EstadisticasAdapter extends RecyclerView.Adapter<EstadisticasAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Estadistica estadistica = lista.get(position);
-        holder.titulo.setText(estadistica.getTitulo());
-        holder.valor.setText(estadistica.getValor());
+
+        if (estadistica == null) {
+            // Mostrar shimmer
+            holder.shimmerLayout.setVisibility(View.VISIBLE);
+            holder.contentLayout.setVisibility(View.GONE);
+            holder.shimmerLayout.startShimmer();
+        } else {
+            // Mostrar contenido real
+            holder.shimmerLayout.stopShimmer();
+            holder.shimmerLayout.setVisibility(View.GONE);
+            holder.contentLayout.setVisibility(View.VISIBLE);
+
+            holder.titulo.setText(estadistica.getTitulo());
+            holder.valor.setText(estadistica.getValor());
+        }
     }
 
     @Override
@@ -42,11 +55,15 @@ public class EstadisticasAdapter extends RecyclerView.Adapter<EstadisticasAdapte
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView titulo, valor;
+        ShimmerFrameLayout shimmerLayout;
+        View contentLayout;
 
         ViewHolder(View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.tituloEstadistica);
             valor = itemView.findViewById(R.id.valorEstadistica);
+            shimmerLayout = itemView.findViewById(R.id.shimmerLayout);
+            contentLayout = itemView.findViewById(R.id.contentLayout);
         }
     }
 }

@@ -9,11 +9,44 @@
     app:cardElevation="4dp"
     android:backgroundTint="@color/blanco">
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shimmer_auto_start="true"
+        app:shimmer_duration="1000"
+        app:shimmer_tilt="20">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
+
+        <View
+            android:id="@+id/placeholderTitulo"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:background="@drawable/placeholder_bg"/>
+
+        <View
+            android:id="@+id/placeholderValor"
+            android:layout_width="100dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/placeholder_bg"/>
+
+    </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tituloEstadistica"
