@@ -51,4 +51,12 @@ public class DashboardController {
             }
         }).start();
     }
+
+    public void obtenerResumenEstadisticas(ResumenCallback callback) {
+        String titulo = "Estadísticas del sitio";
+        String descripcion = "Usuarios, sesiones y actividad de los últimos 7 días";
+
+        callback.onSuccess(new ResumenCard(titulo, descripcion));
+    }
+
 }

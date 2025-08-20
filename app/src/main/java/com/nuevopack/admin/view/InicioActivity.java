@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -65,6 +66,13 @@ public class InicioActivity extends BaseActivity {
         View cardUsuarios = findViewById(R.id.includeCardUsuarios);
         cardUsuarios.setOnClickListener(v -> {
             Intent intent = new Intent(InicioActivity.this, UsuariosActivity.class);
+            startActivity(intent);
+        });
+
+        // CARD Estadísticas del sitio – va a EstadisticasActivity
+        View cardEstadisticas = findViewById(R.id.includeCardEstadisticas);
+        cardEstadisticas.setOnClickListener(v -> {
+            Intent intent = new Intent(InicioActivity.this, EstadisticasActivity.class);
             startActivity(intent);
         });
 
@@ -158,6 +166,26 @@ public class InicioActivity extends BaseActivity {
                     ((TextView) cardUsuarios.findViewById(R.id.tituloCard)).setText(R.string.btn_sidebar_usuarios);
                     ((TextView) cardUsuarios.findViewById(R.id.textoCard)).setText(R.string.error_conexion);
                 });
+            }
+        });
+
+        // Estadísitcas del sitio
+        View cardEstadisticas = findViewById(R.id.includeCardEstadisticas);
+        dashboard.obtenerResumenEstadisticas(new DashboardController.ResumenCallback() {
+            @Override
+            public void onSuccess(ResumenCard estadisticasCard) {
+                ((TextView) cardEstadisticas.findViewById(R.id.tituloCard))
+                        .setText(estadisticasCard.getTitulo());
+                ((TextView) cardEstadisticas.findViewById(R.id.textoCard))
+                        .setText(estadisticasCard.getDescripcion());
+            }
+
+            @Override
+            public void onError(String error) {
+                ((TextView) cardEstadisticas.findViewById(R.id.tituloCard))
+                        .setText("Estadísticas");
+                ((TextView) cardEstadisticas.findViewById(R.id.textoCard))
+                        .setText("Error al cargar resumen");
             }
         });
 

@@ -51,6 +51,9 @@
         </activity>
         <activity android:name=".view.CrearUsuarioActivity" />
         <activity android:name=".view.EditarUsuarioActivity" />
+        <!-- Estadísticas del sitio -->
+        <activity android:name=".view.EstadisticasActivity" />
+
         <!-- Soporte -->
         <activity android:name=".view.SoporteActivity" />
     </application>
