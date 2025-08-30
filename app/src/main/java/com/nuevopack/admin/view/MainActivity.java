@@ -10,13 +10,15 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.common.api.ApiException;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.widget.Toast;
 import com.nuevopack.admin.controller.LoginController;
@@ -49,6 +51,31 @@ public class MainActivity extends AppCompatActivity {
         Button btnLogin = findViewById(R.id.btnLogin);
         CheckBox checkboxRecordarme = findViewById(R.id.checkboxRecordarme);
         Button btnGoogleCustom = findViewById(R.id.btnGoogleCustom);
+        btnLogin.setEnabled(false);
+        btnLogin.setAlpha(0.5f);
+
+        // Botón 'Iniciar sesión' deshabilitado sin datos
+        TextWatcher loginTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String email = inputEmail.getText().toString().trim();
+                String password = inputPassword.getText().toString().trim();
+
+                boolean habilitado = !email.isEmpty() && !password.isEmpty();
+                btnLogin.setEnabled(habilitado);
+                btnLogin.setAlpha(habilitado ? 1f : 0.5f);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        };
+
+        // Asignar watcher a ambos inputs
+        inputEmail.addTextChangedListener(loginTextWatcher);
+        inputPassword.addTextChangedListener(loginTextWatcher);
 
         // Verificar si hay una sesión activa
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
