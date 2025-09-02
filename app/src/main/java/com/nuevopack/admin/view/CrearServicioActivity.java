@@ -11,20 +11,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.view.View;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.util.ApiConfig;
-
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
 import android.text.TextUtils;
-
 import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
 
@@ -33,6 +28,7 @@ public class CrearServicioActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private ImageView imagePreview;
     private String imageBase64 = "";
+    private Button btnEliminarImagen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +39,10 @@ public class CrearServicioActivity extends AppCompatActivity {
         inputDescripcion = findViewById(R.id.inputDescripcion);
         imagePreview = findViewById(R.id.imagePreview);
         Button btnSeleccionarImagen = findViewById(R.id.btnSeleccionarImagen);
-        Button btnEliminarImagen = findViewById(R.id.btnEliminarImagen);
+        btnEliminarImagen = findViewById(R.id.btnEliminarImagen);
         btnEliminarImagen.setVisibility(View.GONE);
         Button btnGuardar = findViewById(R.id.btnGuardarServicio);
+        imagePreview.setImageResource(R.drawable.sin_imagen); // Placeholder por defecto
 
         btnSeleccionarImagen.setOnClickListener(v -> seleccionarImagen());
         btnGuardar.setOnClickListener(v -> {
@@ -59,6 +56,13 @@ public class CrearServicioActivity extends AppCompatActivity {
 
             guardarServicio(nombre, descripcion, imageBase64);
         });
+
+        btnEliminarImagen.setOnClickListener(v -> {
+            imagePreview.setImageResource(R.drawable.sin_imagen);
+            imageBase64 = "";
+            btnEliminarImagen.setVisibility(View.GONE);
+        });
+
     }
 
     private void seleccionarImagen() {
@@ -73,6 +77,8 @@ public class CrearServicioActivity extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri imagenUri = data.getData();
+            imagePreview.setVisibility(View.VISIBLE);
+            btnEliminarImagen.setVisibility(View.VISIBLE);
             imagePreview.setImageURI(imagenUri);
 
             try {
@@ -95,10 +101,11 @@ public class CrearServicioActivity extends AppCompatActivity {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 
                 String datos = "nombre=" + URLEncoder.encode(nombre, "UTF-8") +
                         "&descripcion=" + URLEncoder.encode(descripcion, "UTF-8") +
-                        "&foto=" + URLEncoder.encode(imagenBase64, "UTF-8");
+                        "&foto=" + URLEncoder.encode(imagenBase64 != null ? imagenBase64 : "", "UTF-8");
 
                 OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
                 writer.write(datos);

@@ -4,30 +4,25 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.model.Servicio;
 import com.nuevopack.admin.util.ApiConfig;
 import com.nuevopack.admin.view.EditarServicioActivity;
 import com.nuevopack.admin.view.ServicioBottomSheet;
-
 import java.util.List;
 
 public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHolder> {
@@ -52,15 +47,19 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHo
         Servicio servicio = servicios.get(position);
         holder.nombre.setText(servicio.getNombre());
 
-        String urlImagen = ApiConfig.BASE_URL + "uploads/" + servicio.getFoto();
-        // Corregir posible doble slash para evitar errores
-        urlImagen = urlImagen.replaceAll("(?<!(http:|https:))/+", "/");
+        String urlImagen = servicio.getFoto();
+        if (urlImagen != null && !urlImagen.isEmpty()) {
+            urlImagen = ApiConfig.BASE_URL + "uploads/" + urlImagen;
+            urlImagen = urlImagen.replaceAll("(?<!(http:|https:))/+", "/");
 
         Glide.with(context)
                 .load(urlImagen)
                 .placeholder(R.drawable.placeholder) // imagen mientras carga
                 .error(R.drawable.imagen_error) // imagen si falla la carga
                 .into(holder.imagen);
+        } else {
+            holder.imagen.setImageResource(R.drawable.sin_imagen);
+        }
 
         holder.itemView.setOnClickListener(v -> {
             ServicioBottomSheet dialogo = ServicioBottomSheet.newInstance(servicio);

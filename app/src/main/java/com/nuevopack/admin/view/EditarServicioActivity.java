@@ -67,32 +67,32 @@ public class EditarServicioActivity extends AppCompatActivity {
             Glide.with(this)
                     .asBitmap()
                     .load(urlImagen)
-                    .error(R.drawable.placeholder)
+                    .error(R.drawable.sin_imagen)
                     .into(new com.bumptech.glide.request.target.BitmapImageViewTarget(imagePreview) {
                         @Override
                         protected void setResource(Bitmap resource) {
                             if (resource != null) {
                                 super.setResource(resource);
                                 imagePreview.setImageBitmap(resource);
-
-                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                                resource.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-                                byte[] imageBytes = baos.toByteArray();
-                                imageBase64 = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                                imageBase64 = "";
 
                             } else {
                                 // Imagen no cargó: mostrar placeholder y limpiar base64
-                                imagePreview.setImageResource(R.drawable.placeholder);
+                                imagePreview.setImageResource(R.drawable.sin_imagen);
                                 imageBase64 = "";
                             }
                         }
                     });
+        } else {
+            // No había fotoUrl → placeholder por default
+            imagePreview.setImageResource(R.drawable.sin_imagen);
+            imageBase64 = "";
         }
 
         btnSeleccionarImagen.setOnClickListener(v -> seleccionarImagen());
 
         btnEliminarImagen.setOnClickListener(v -> {
-            imagePreview.setImageResource(R.drawable.placeholder);
+            imagePreview.setImageResource(R.drawable.sin_imagen);
             imageBase64 = "ELIMINAR";
         });
 

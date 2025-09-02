@@ -42,15 +42,6 @@
             android:fontFamily="@font/poppins_regular"
             android:layout_marginBottom="16dp" />
 
-        <ImageView
-            android:id="@+id/imagePreview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:layout_marginBottom="12dp"
-            android:src="@drawable/placeholder" />
-
         <Button
             android:id="@+id/btnSeleccionarImagen"
             android:layout_width="match_parent"
@@ -69,6 +60,15 @@
             android:layout_marginBottom="18dp"
             android:textColor="@color/blanco"
             android:backgroundTint="@color/rojo_manzana"/>
+
+        <ImageView
+            android:id="@+id/imagePreview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:layout_marginBottom="12dp"
+            android:src="@android:color/transparent" />
 
         <Button
             android:id="@+id/btnGuardarServicio"
