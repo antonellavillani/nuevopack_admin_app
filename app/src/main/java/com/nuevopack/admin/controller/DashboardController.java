@@ -1,15 +1,21 @@
 package com.nuevopack.admin.controller;
 
+import android.content.Context;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.nuevopack.admin.model.ResumenCard;
-
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DashboardController {
+
     public interface ResumenCallback {
         void onSuccess(ResumenCard resumen);
         void onError(String error);
@@ -59,4 +65,37 @@ public class DashboardController {
         callback.onSuccess(new ResumenCard(titulo, descripcion));
     }
 
+    public interface DeleteCallback {
+        void onSuccess(String mensaje);
+        void onError(String error);
+    }
+
+    public void eliminarActividad(Context context, String url, int idActividad, DeleteCallback callback) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    try {
+                        JSONObject obj = new JSONObject(response);
+                        if (obj.has("success")) {
+                            callback.onSuccess("Actividad eliminada");
+                        } else {
+                            callback.onError(obj.optString("error", "Error desconocido"));
+                        }
+                    } catch (Exception e) {
+                        callback.onError("Error procesando la respuesta");
+                    }
+                },
+                error -> callback.onError("Error de conexión")
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("id", String.valueOf(idActividad));
+                return params;
+            }
+        };
+
+        queue.add(postRequest);
+    }
 }

@@ -8,10 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.nuevopack.admin.R;
@@ -30,9 +30,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class InicioActivity extends BaseActivity {
+    private List<Actividad> listaActividades = new ArrayList<>();
+    private ActividadAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +98,13 @@ public class InicioActivity extends BaseActivity {
             Intent intent = new Intent(InicioActivity.this, CrearUsuarioActivity.class);
             startActivity(intent);
         });
+
+        // RecyclerView actividad
+        View cardActividad = findViewById(R.id.includeCardActividad);
+        RecyclerView recyclerActividad = cardActividad.findViewById(R.id.recyclerActividad);
+        adapter = new ActividadAdapter(listaActividades, actividad -> eliminarActividad(actividad.getId()));
+        recyclerActividad.setAdapter(adapter);
+        recyclerActividad.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -192,8 +202,7 @@ public class InicioActivity extends BaseActivity {
         // Actividad reciente
         View cardActividad = findViewById(R.id.includeCardActividad);
         RecyclerView recyclerActividad = cardActividad.findViewById(R.id.recyclerActividad);
-        List<Actividad> listaActividades = new ArrayList<>();
-        ActividadAdapter adapter = new ActividadAdapter(listaActividades);
+        recyclerActividad.setAdapter(adapter);
         recyclerActividad.setLayoutManager(new LinearLayoutManager(this));
         recyclerActividad.setAdapter(adapter);
         TextView textoActividad = cardActividad.findViewById(R.id.contenidoInfoAlerta);
@@ -224,6 +233,7 @@ public class InicioActivity extends BaseActivity {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject obj = jsonArray.getJSONObject(i);
                     nuevasActividades.add(new Actividad(
+                            Integer.parseInt(obj.getString("id")),
                             obj.getString("descripcion"),
                             obj.getString("fecha")
                     ));
@@ -294,5 +304,81 @@ public class InicioActivity extends BaseActivity {
         );
 
         queue.add(request);
+    }
+
+    private void eliminarActividad(int idActividad) {
+        String urlEliminar = ApiConfig.BASE_URL + "backend/api/eliminar_actividad.php";
+        DashboardController dashboard = new DashboardController();
+
+        dashboard.eliminarActividad(this, urlEliminar, idActividad, new DashboardController.DeleteCallback() {
+            @Override
+            public void onSuccess(String mensaje) {
+                runOnUiThread(() -> {
+                    Toast.makeText(InicioActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+                    // Sacar la actividad eliminada de la lista local
+                    for (int i = 0; i < listaActividades.size(); i++) {
+                        if (listaActividades.get(i).getId() == idActividad) {
+                            listaActividades.remove(i);
+                            adapter.notifyItemRemoved(i);
+                            break;
+                        }
+                    }
+                    // Si la lista en pantalla quedó vacía, traer otras 5 actividades
+                    if (listaActividades.isEmpty()) {
+                        recargarActividades();
+                    }
+
+                });
+            }
+
+            @Override
+            public void onError(String error) {
+                runOnUiThread(() ->
+                        Toast.makeText(InicioActivity.this, error, Toast.LENGTH_SHORT).show()
+                );
+            }
+        });
+    }
+
+    private void recargarActividades() {
+        String url = ApiConfig.BASE_URL + "backend/api/obtener_actividades.php";
+
+        new Thread(() -> {
+            try {
+                HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+                conn.setRequestMethod("GET");
+                conn.connect();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder json = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    json.append(line);
+                }
+
+                JSONArray jsonArray = new JSONArray(json.toString());
+                List<Actividad> nuevasActividades = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    nuevasActividades.add(new Actividad(
+                            obj.getInt("id"),
+                            obj.getString("descripcion"),
+                            obj.getString("fecha")
+                    ));
+                }
+
+                runOnUiThread(() -> {
+                    listaActividades.clear();
+                    listaActividades.addAll(nuevasActividades);
+                    adapter.notifyDataSetChanged();
+                });
+
+            } catch (Exception e) {
+                runOnUiThread(() -> {
+                    listaActividades.clear();
+                    adapter.notifyDataSetChanged();
+                });
+            }
+        }).start();
     }
 }

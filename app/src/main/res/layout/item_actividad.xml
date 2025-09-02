@@ -14,4 +14,11 @@
         android:textSize="15sp"
         android:textColor="@color/gris_oscuro"
         android:fontFamily="@font/poppins_regular" />
+
+    <ImageView
+        android:id="@+id/btnEliminarActividad"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_delete"
+        android:padding="4dp" />
 </LinearLayout>
