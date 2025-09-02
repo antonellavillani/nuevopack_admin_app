@@ -6,6 +6,7 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.nuevopack.admin.model.Usuario;
 import com.nuevopack.admin.util.ApiConfig;
@@ -14,6 +15,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UsuarioController {
 
@@ -49,6 +52,37 @@ public class UsuarioController {
                     callback.onError("Error en la conexión: " + error.getMessage());
                     Log.e("Volley", error.toString());
                 });
+
+        queue.add(request);
+    }
+
+    public static void eliminarUsuario(Context context, int idUsuario, final UsuarioCallback callback) {
+        String url = ApiConfig.BASE_URL + "backend/api/usuarios_abm/eliminar_usuario.php";
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        StringRequest request = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    try {
+                        JSONObject obj = new JSONObject(response);
+                        if (obj.getBoolean("success")) {
+                            callback.onSuccess(null);
+                        } else {
+                            callback.onError(obj.getString("error"));
+                        }
+                    } catch (JSONException e) {
+                        callback.onError("Error al parsear respuesta");
+                    }
+                },
+                error -> callback.onError("Error en la conexión: " + error.getMessage())
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("id", String.valueOf(idUsuario));
+                return params;
+            }
+        };
 
         queue.add(request);
     }

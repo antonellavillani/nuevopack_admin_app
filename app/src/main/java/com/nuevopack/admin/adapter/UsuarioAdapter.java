@@ -8,15 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.model.Usuario;
 import com.nuevopack.admin.view.EditarUsuarioActivity;
-
 import java.util.ArrayList;
+import android.app.AlertDialog;
+import com.nuevopack.admin.controller.UsuarioController;
+import android.widget.Toast;
 
 public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHolder> {
 
@@ -50,6 +50,30 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
             intent.putExtra("usuario", usuario);
             ((Activity) context).startActivityForResult(intent, 301);
         });
+
+        holder.btnEliminarUsuario.setOnClickListener(v -> {
+            Context context = v.getContext();
+            new AlertDialog.Builder(context)
+                    .setTitle("Eliminar usuario")
+                    .setMessage("¿Seguro que deseas eliminar a " + usuario.getNombreCompleto() + "?")
+                    .setPositiveButton("Sí", (dialog, which) -> {
+                        UsuarioController.eliminarUsuario(context, usuario.getId(), new UsuarioController.UsuarioCallback() {
+                            @Override
+                            public void onSuccess(ArrayList<Usuario> lista) {
+                                usuarios.remove(position);
+                                notifyItemRemoved(position);
+                                Toast.makeText(context, "Usuario eliminado", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onError(String mensaje) {
+                                Toast.makeText(context, "Error: " + mensaje, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    })
+                    .setNegativeButton("Cancelar", null)
+                    .show();
+        });
     }
 
     @Override
@@ -59,7 +83,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView nombreCompleto, id, email, telefono, aprobado;
-        Button btnEditarUsuario;
+        Button btnEditarUsuario, btnEliminarUsuario;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +93,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
             telefono = itemView.findViewById(R.id.telefonoUsuario);
             aprobado = itemView.findViewById(R.id.aprobadoUsuario);
             btnEditarUsuario = itemView.findViewById(R.id.btnEditarUsuario);
+            btnEliminarUsuario = itemView.findViewById(R.id.btnEliminarUsuario);
         }
     }
 }
