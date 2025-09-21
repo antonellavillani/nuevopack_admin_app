@@ -41,7 +41,12 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
         holder.nombreCompleto.setText(usuario.getNombreCompleto());
         holder.id.setText("ID: " + usuario.getId());
         holder.email.setText("Email: " + usuario.getEmail());
-        holder.telefono.setText("Teléfono: " + usuario.getTelefono());
+        String telefono = usuario.getTelefono();
+        if (telefono == null || telefono.trim().isEmpty() || telefono.equalsIgnoreCase("null")) {
+            holder.telefono.setText("Teléfono: no cargado");
+        } else {
+            holder.telefono.setText("Teléfono: " + telefono);
+        }
         holder.aprobado.setText(usuario.isAprobado() ? "Aprobado" : "No aprobado");
 
         holder.btnEditarUsuario.setOnClickListener(v -> {
