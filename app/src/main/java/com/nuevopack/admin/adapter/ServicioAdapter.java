@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.app.AlertDialog;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.model.Servicio;
 import com.nuevopack.admin.util.ApiConfig;
@@ -48,17 +55,38 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHo
         holder.nombre.setText(servicio.getNombre());
 
         String urlImagen = servicio.getFoto();
-        if (urlImagen != null && !urlImagen.isEmpty()) {
+        if (urlImagen != null && !urlImagen.isEmpty() && !"null".equalsIgnoreCase(urlImagen)) {
             urlImagen = ApiConfig.BASE_URL + "uploads/" + urlImagen;
             urlImagen = urlImagen.replaceAll("(?<!(http:|https:))/+", "/");
 
-        Glide.with(context)
-                .load(urlImagen)
-                .placeholder(R.drawable.placeholder) // imagen mientras carga
-                .error(R.drawable.imagen_error) // imagen si falla la carga
-                .into(holder.imagen);
+            holder.shimmerLayout.startShimmer();
+            Glide.with(context)
+                    .load(urlImagen)
+                    .placeholder(R.drawable.placeholder_loading)
+                    .error(R.drawable.imagen_error)
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model,
+                                                    Target<Drawable> target, boolean isFirstResource) {
+                            holder.shimmerLayout.stopShimmer();
+                            holder.shimmerLayout.setShimmer(null);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model,
+                                                       Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            holder.shimmerLayout.stopShimmer();
+                            holder.shimmerLayout.setShimmer(null);
+                            return false;
+                        }
+                    })
+                    .into(holder.imagenServicio);
         } else {
-            holder.imagen.setImageResource(R.drawable.sin_imagen);
+            holder.imagenServicio.setImageResource(R.drawable.sin_imagen);
+            holder.shimmerLayout.stopShimmer();
+            holder.shimmerLayout.setShimmer(null);
+
         }
 
         holder.itemView.setOnClickListener(v -> {
@@ -132,6 +160,9 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHo
         ImageView imagen;
         Button btnEditar;
         Button btnEliminar;
+        ShimmerFrameLayout shimmerLayout;
+        ImageView imagenServicio;
+
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -139,6 +170,8 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHo
             imagen = itemView.findViewById(R.id.imagenServicio);
             btnEditar = itemView.findViewById(R.id.btnEditarServicio);
             btnEliminar = itemView.findViewById(R.id.btnEliminarServicio);
+            shimmerLayout = itemView.findViewById(R.id.shimmerLayout);
+            imagenServicio = itemView.findViewById(R.id.imagenServicio);
         }
 
     }
