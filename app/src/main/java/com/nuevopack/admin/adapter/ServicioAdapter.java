@@ -1,5 +1,7 @@
 package com.nuevopack.admin.adapter;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -63,7 +65,7 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHo
             Glide.with(context)
                     .load(urlImagen)
                     .placeholder(R.drawable.placeholder_loading)
-                    .error(R.drawable.imagen_error)
+                    .error(R.drawable.sin_imagen)
                     .listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model,
@@ -86,7 +88,6 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHo
             holder.imagenServicio.setImageResource(R.drawable.sin_imagen);
             holder.shimmerLayout.stopShimmer();
             holder.shimmerLayout.setShimmer(null);
-
         }
 
         holder.itemView.setOnClickListener(v -> {
@@ -132,20 +133,37 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHo
                 OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
                 writer.write(datos);
                 writer.flush();
-                writer.close();
 
                 int responseCode = conn.getResponseCode();
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    ((Activity) context).runOnUiThread(() -> {
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(responseCode < 400 ? conn.getInputStream() : conn.getErrorStream())
+                );
+                StringBuilder response = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+
+                ((Activity) context).runOnUiThread(() -> {
+                    if (responseCode == 200) {
+                        Toast.makeText(context, "Servicio eliminado", Toast.LENGTH_SHORT).show();
                         servicios.remove(position);
                         notifyItemRemoved(position);
-                        Toast.makeText(context, "Servicio eliminado", Toast.LENGTH_SHORT).show();
-                    });
-                } else {
-                    ((Activity) context).runOnUiThread(() ->
-                            Toast.makeText(context, "No se pudo eliminar el servicio", Toast.LENGTH_SHORT).show()
-                    );
-                }
+                    } else {
+                        String mensaje = response.toString();
+
+                        // Si se recibe SQLSTATE 23000
+                        if (mensaje.contains("SQLSTATE[23000]")) {
+                            mensaje = "El servicio no puede eliminarse porque tiene precios asociados. Eliminalos primero o desvincúlalos.";
+                        }
+
+                        new AlertDialog.Builder(context)
+                                .setTitle("No se puede eliminar")
+                                .setMessage(mensaje)
+                                .setPositiveButton("OK", null)
+                                .show();
+                    }
+                });
 
             } catch (Exception e) {
                 ((Activity) context).runOnUiThread(() ->
