@@ -19,14 +19,14 @@
         android:layout_gravity="start"
         android:clickable="true"
         android:focusable="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="10dp"
         android:contentDescription="@string/cerrar_sidebar" />
 
     <!-- Espacio para separar la cruz del título -->
     <View
         android:layout_width="wrap_content"
-        android:layout_height="110dp" />
+        android:layout_height="100dp" />
 
     <!-- Título -->
     <TextView

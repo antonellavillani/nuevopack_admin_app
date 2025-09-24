@@ -14,6 +14,8 @@ import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.nuevopack.admin.R;
@@ -40,8 +42,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
 
         // NAVBAR
+        View navbar = findViewById(R.id.includeNavbar);
         ImageView iconMenu = findViewById(R.id.iconMenu);
         ImageView iconAccount = findViewById(R.id.iconAccount);
+
+        // Ajustar padding dinámico para barra de estado
+        ViewCompat.setOnApplyWindowInsetsListener(navbar, (v, insets) -> {
+            int statusBarHeight = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
+
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            params.topMargin = statusBarHeight;
+            v.setLayoutParams(params);
+
+            return insets;
+        });
+
 
         iconMenu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
         iconAccount.setOnClickListener(v -> mostrarPopupCuenta());
