@@ -2,12 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:clipToPadding="false">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="100dp">
 
         <TextView
             android:id="@+id/textViewTitulo"
@@ -18,7 +20,8 @@
             android:textStyle="bold"
             android:textColor="@color/negro"
             android:fontFamily="@font/poppins_regular"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="40dp"/>
 
         <TextView android:text="@string/opcion_nombre"
             android:layout_width="wrap_content"
