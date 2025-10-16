@@ -98,7 +98,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void mostrarPopupCuenta() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String nombre = prefs.getString("nombreUsuario", "Nombre Apellido");
-        String correo = prefs.getString("emailUsuario", "usuario@email.com");
+        String correo = prefs.getString("emailGuardado", "usuario@email.com");
 
         View view = getLayoutInflater().inflate(R.layout.popup_account_menu, null);
         ((TextView) view.findViewById(R.id.tvNombre)).setText(nombre);
