@@ -47,8 +47,11 @@ public class EditarUsuarioActivity extends AppCompatActivity {
         EditText inputPassword = findViewById(R.id.inputPassword);
         EditText inputRepetirPassword = findViewById(R.id.inputRepetirPassword);
 
+        // Ocultar campos y validadores de contraseña
         inputPassword.setVisibility(View.GONE);
         inputRepetirPassword.setVisibility(View.GONE);
+        findViewById(R.id.textoRequisitosPassword).setVisibility(View.GONE);
+        findViewById(R.id.passwordRulesLayout).setVisibility(View.GONE);
 
         usuario = (Usuario) getIntent().getSerializableExtra("usuario");
         if (usuario != null) {
