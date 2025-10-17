@@ -59,7 +59,8 @@ public class EditarUsuarioActivity extends AppCompatActivity {
             inputNombre.setText(usuario.getNombre());
             inputApellido.setText(usuario.getApellido());
             inputEmail.setText(usuario.getEmail());
-            inputTelefono.setText(usuario.getTelefono());
+            String telefono = usuario.getTelefono();
+            inputTelefono.setText(telefono != null && !telefono.equalsIgnoreCase("null") ? telefono : "");
             checkAprobado.setChecked(usuario.isAprobado());
         } else {
             checkAprobado.setChecked(false);
