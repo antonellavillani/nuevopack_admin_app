@@ -1,6 +1,5 @@
 package com.nuevopack.admin.view;
 
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,17 +7,15 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.nuevopack.admin.R;
 import com.nuevopack.admin.util.ApiConfig;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,6 +64,19 @@ public class CrearUsuarioActivity extends AppCompatActivity {
         btnCrearUsuario = findViewById(R.id.btnCrearUsuario);
 
         btnCrearUsuario.setOnClickListener(v -> crearUsuario());
+
+        // --- listeners de scroll automático ---
+        ScrollView scrollView = findViewById(R.id.scrollViewPrincipal);
+        inputPassword.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                scrollView.post(() -> scrollView.smoothScrollTo(0, inputPassword.getBottom()));
+            }
+        });
+        inputRepetirPassword.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                scrollView.post(() -> scrollView.smoothScrollTo(0, inputRepetirPassword.getTop()));
+            }
+        });
 
         Button btnResetearContrasena = findViewById(R.id.btnResetearContrasena);
         btnResetearContrasena.setVisibility(View.GONE);
