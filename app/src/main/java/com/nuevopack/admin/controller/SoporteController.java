@@ -2,12 +2,9 @@ package com.nuevopack.admin.controller;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Base64;
-
 import com.nuevopack.admin.model.SoporteRequest;
 import com.nuevopack.admin.service.SoporteService;
-
-import java.io.InputStream;
+import com.nuevopack.admin.util.ImageUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +23,8 @@ public class SoporteController {
             List<String> imagenesBase64 = new ArrayList<>();
 
             for (Uri uri : imagenesUri) {
-                InputStream is = context.getContentResolver().openInputStream(uri);
-                byte[] bytes = new byte[is.available()];
-                is.read(bytes);
-                is.close();
-                String base64 = Base64.encodeToString(bytes, Base64.DEFAULT);
-                imagenesBase64.add(base64);
+                String base64 = ImageUtils.compressImageToBase64(context, uri, 1080, 720, 70);
+                if (base64 != null) imagenesBase64.add(base64);
             }
 
             SoporteRequest request = new SoporteRequest(asunto, mensaje, imagenesBase64);
